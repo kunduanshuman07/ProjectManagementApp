@@ -13,7 +13,7 @@ const GridTable = () => {
             <table className="table">
                 <thead>
                     <tr>
-                        <th className="font-bold">Task</th>
+                        <th className="font-bold">Tasks</th>
                         <th className="font-bold">Assignee</th>
                         <th className="font-bold">Priority</th>
                         <th className="font-bold">Deadline</th>

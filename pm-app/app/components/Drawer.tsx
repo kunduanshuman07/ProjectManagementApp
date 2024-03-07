@@ -1,6 +1,7 @@
 
 import { useRouter } from 'next/navigation'
 import { CgProfile } from "react-icons/cg";
+import { FaProjectDiagram } from "react-icons/fa";
 
 const Drawer = () => {
     const router = useRouter();
@@ -10,7 +11,10 @@ const Drawer = () => {
     return (
         <div className="navbar bg-base-100">
             <div className="navbar-start">
-                <a className="btn btn-ghost text-xl">Project Management App</a>
+                <a className="btn btn-ghost text-xl">
+                    <FaProjectDiagram/>
+                    Project Management App
+                </a>
             </div>
             <div className="navbar-center">
                 <button className="btn btn-outline btn-info">Project #144</button>
