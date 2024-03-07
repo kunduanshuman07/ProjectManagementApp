@@ -1,7 +1,12 @@
 
+import { useRouter } from 'next/navigation'
 import { CgProfile } from "react-icons/cg";
 
 const Drawer = () => {
+    const router = useRouter();
+    const handleLogin = () => {
+        router.push('/login');
+    }
     return (
         <div className="navbar bg-base-100">
             <div className="navbar-start">
@@ -10,8 +15,10 @@ const Drawer = () => {
             <div className="navbar-center">
                 <button className="btn btn-outline btn-info">Project #144</button>
             </div>
-            <div className="navbar-end">
-                <button className="btn text-xl p-4 btn-accent"><CgProfile /></button>
+            <div className="navbar-end" data-tip="Profile" >
+                <div className="tooltip tooltip-bottom" data-tip="Profile">
+                    <button className="btn text-xl p-4 btn-secondary btn-circle" onClick={handleLogin}><CgProfile /></button>
+                </div>
             </div>
 
         </div>

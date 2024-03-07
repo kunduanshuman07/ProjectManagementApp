@@ -1,10 +1,10 @@
 import React from 'react'
-import AuthCompLogin from '../components/AuthCompLogin'
+import AuthCompRegister from '../components/AuthCompRegister'
 
 const page = () => {
   return (
     <div>
-       <AuthCompLogin/>
+        <AuthCompRegister/>
     </div>
   )
 }

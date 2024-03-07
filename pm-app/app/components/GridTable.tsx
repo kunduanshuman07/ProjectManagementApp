@@ -1,5 +1,13 @@
+'use client'
+
+import { useState } from "react"
+import TaskDetailsDialog from "./TaskDetailsDialog";
 
 const GridTable = () => {
+    const [modalOpen, setModalOpen] = useState<boolean>(false);
+    const handleDetails = () => {
+        setModalOpen(true);
+    }
     return (
         <div className="overflow-x-auto  p-10">
             <table className="table">
@@ -29,12 +37,13 @@ const GridTable = () => {
                         <td>24-03-2024</td>
                         <td><button className="btn btn-primary btn-xs">In Progress</button></td>
                         <th>
-                            <button className="btn btn-xs">Details</button>
+                            <button className="btn btn-xs" onClick={handleDetails}>Details</button>
                         </th>
                     </tr>
                 </tbody>
 
             </table>
+            <TaskDetailsDialog modalOpen={modalOpen} setModalOpen={setModalOpen}/>
         </div>
     )
 }
