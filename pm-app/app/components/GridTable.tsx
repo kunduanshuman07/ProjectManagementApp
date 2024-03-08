@@ -1,10 +1,16 @@
-'use client'
-import { useState } from "react"
-import TaskDetailsDialog from "./TaskDetailsDialog";
-const GridTable = () => {
-    const [modalOpen, setModalOpen] = useState<boolean>(false);
-    const handleDetails = () => {
-        setModalOpen(true);
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers"
+
+const GridTable = async () => {
+    const cookieStore = cookies();
+    const supabase = createServerComponentClient({ cookies: () => cookieStore });
+    const { data: { session } } = await supabase.auth.getSession();
+    const user = session?.user;
+    const { data: tasks, error } = await supabase
+        .from('watches')
+        .select('*');
+    if (error) {
+        console.log('Error fetching tasks');
     }
     return (
         <div className="overflow-x-auto  p-10">
@@ -20,28 +26,29 @@ const GridTable = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>
-                            <div className="flex items-center gap-3">
-                                <div>
-                                    <div className="font-bold">Fix the issue with the segmentation of UI</div>
+                    {tasks?.map((task: any) => (
+                        <tr key={task.id}>
+                            <td>
+                                <div className="flex items-center gap-3">
+                                    <div>
+                                        <div className="font-bold">{task.task}</div>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td>Anshuman Kundu</td>
-                        <td>
-                            <button className="btn btn-warning btn-xs">Medium</button>
-                        </td>
-                        <td>24-03-2024</td>
-                        <td><button className="btn btn-primary btn-xs">In Progress</button></td>
-                        <th>
-                            <button className="btn btn-xs" onClick={handleDetails}>Details</button>
-                        </th>
-                    </tr>
+                            </td>
+                            <td>{task.assignee}</td>
+                            <td>
+                                <button className="btn btn-warning btn-xs">{task.priority}</button>
+                            </td>
+                            <td>{task.deadline}</td>
+                            <td><button className="btn btn-primary btn-xs">{task.status}</button></td>
+                            <th>
+                                <button className="btn btn-xs">Details</button>
+                            </th>
+                        </tr>
+                    ))}
                 </tbody>
 
             </table>
-            <TaskDetailsDialog modalOpen={modalOpen} setModalOpen={setModalOpen}/>
         </div>
     )
 }

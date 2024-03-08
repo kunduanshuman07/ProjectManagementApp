@@ -1,5 +1,3 @@
-'use client'
-
 import Drawer from "../components/Drawer";
 import GridTable from "../components/GridTable";
 import ProjectHeader from "../components/ProjectHeader";

@@ -1,4 +1,4 @@
-
+'use client'
 import { useRouter } from 'next/navigation'
 import { CgProfile } from "react-icons/cg";
 import { FaProjectDiagram } from "react-icons/fa";

@@ -1,5 +1,4 @@
 import ModalFields from "./ModalFields";
-
 interface ModalProps {
     modalOpen: boolean;
     setModalOpen: (modalOpen: boolean) => void;
@@ -13,13 +12,11 @@ const AddTaskDialog: React.FC<ModalProps> = ({ modalOpen, setModalOpen }) => {
     return (
         <dialog id="my_modal_1" className={`modal ${modalOpen ? 'modal-open' : ""}`}>
             <div className="modal-box w-11/12 max-w-5xl">
-                <ModalFields />
-                <div className="modal-action">
-                    <form method="dialog">
-                        <button className="btn btn-accent mr-10">Add New Task</button>
-                        <button className="btn " onClick={handleModalClose}>Close</button>
-                    </form>
+                <div className='flex flex-row'>
+                    <button className="btn btn-outline btn-success text-white font-bold no-animation">Add New Task to the Project</button>
+                    <button className="btn ml-auto" onClick={handleModalClose}>Close</button>
                 </div>
+                <ModalFields />
             </div>
         </dialog>
     )
