@@ -7,7 +7,6 @@ const TaskDetailsDialog: React.FC<ModalProps> = ({ modalOpen, setModalOpen }) =>
     const handleModalClose = () => {
         setModalOpen(false);
     }
-    console.log(modalOpen);
     return (
         <dialog id="my_modal_1" className={`modal ${modalOpen ? 'modal-open' : ""}`}>
             <div className="modal-box w-11/12 max-w-5xl">

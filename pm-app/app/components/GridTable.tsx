@@ -1,8 +1,6 @@
 'use client'
-
 import { useState } from "react"
 import TaskDetailsDialog from "./TaskDetailsDialog";
-
 const GridTable = () => {
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const handleDetails = () => {

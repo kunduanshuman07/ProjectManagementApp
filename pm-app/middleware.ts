@@ -17,5 +17,5 @@ export async function middleware(req: any){
 }
 
 export const config = {
-    matcher: ['/',]
+    matcher: ['/','/projects']
 }

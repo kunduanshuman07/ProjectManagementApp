@@ -1,12 +1,16 @@
-import React from 'react'
-import Project from '../pages/Project'
+'use client'
 
+import Drawer from "../components/Drawer";
+import GridTable from "../components/GridTable";
+import ProjectHeader from "../components/ProjectHeader";
 const page = () => {
-  return (
-    <div>
-        <Project/>
-    </div>
-  )
+    return (
+        <div>
+            <Drawer />
+            <ProjectHeader/>
+            <GridTable />
+        </div>
+    )
 }
 
 export default page
