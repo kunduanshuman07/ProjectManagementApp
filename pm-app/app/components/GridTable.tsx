@@ -5,6 +5,7 @@ import { MdOutlineDescription } from "react-icons/md";
 import { useState } from "react";
 import AddTaskDialog from "./AddTaskDialog";
 import DeleteTaskDialog from "./DeleteTaskDialog";
+import DetailsModal from "./DetailsModal";
 interface GridTableProps {
     tasks: any[] | null
 }
@@ -12,12 +13,18 @@ interface GridTableProps {
 const GridTable: React.FC<GridTableProps> = ({ tasks }) => {
     const [editModalOpen, setEditModalOpen] = useState<any>(false)
     const [deleteModalOpen, setDeleteModalOpen] = useState<any>(false)
+    const [detailsModal, setDetailsModal] = useState<any>(false);
+    const [detailsTask, setDetailsTask] = useState<any>();
     const [taskId, setTaskId] = useState<any>();
+    const handleDetails = (task: any) => {
+        setDetailsTask(task);
+        setDeleteModalOpen(true);
+    }
     const handleEdit = (taskId: any) => {
         setTaskId(taskId);
         setEditModalOpen(true);
     }
-    const handleDelete = () => {
+    const handleDelete = (taskId: any) => {
         setDeleteModalOpen(true);
     }
     return (
@@ -52,13 +59,13 @@ const GridTable: React.FC<GridTableProps> = ({ tasks }) => {
                             <td>{task.deadline}</td>
                             <td><button className="btn btn-primary btn-xs">{task.status}</button></td>
                             <td>
-                                <button className="btn btn-xs"><MdOutlineDescription /></button>
+                                <button className="btn btn-xs" onClick={()=>handleDetails(task)}><MdOutlineDescription /></button>
                             </td>
                             <td>
                                 <button className="btn btn-xs" onClick={()=>handleEdit(task.id)}><FaEdit /></button>
                             </td>
                             <td>
-                                <button className="btn btn-xs" onClick={handleDelete}><MdDelete /></button>
+                                <button className="btn btn-xs" onClick={()=>handleDelete(task.id)}><MdDelete /></button>
                             </td>
                         </tr>
                     ))}
@@ -66,6 +73,7 @@ const GridTable: React.FC<GridTableProps> = ({ tasks }) => {
             </table>
             {editModalOpen&&<AddTaskDialog setModalOpen={setEditModalOpen} modalOpen={editModalOpen} callType="Edit" taskId={taskId}/>}
             {deleteModalOpen&&<DeleteTaskDialog setModalOpen={setDeleteModalOpen} modalOpen={deleteModalOpen} taskId={taskId}/>}
+            {detailsModal&&<DetailsModal setModalOpen={setDetailsModal} modalOpen={detailsModal} task={detailsTask}/>}
         </div>
     )
 }
