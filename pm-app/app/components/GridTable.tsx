@@ -17,6 +17,7 @@ const GridTable: React.FC<GridTableProps> = ({ tasks }) => {
     const [detailsTask, setDetailsTask] = useState<any>();
     const [taskId, setTaskId] = useState<any>();
     const handleDetails = (task: any) => {
+        console.log(task);
         setDetailsTask(task);
         setDeleteModalOpen(true);
     }
@@ -32,6 +33,9 @@ const GridTable: React.FC<GridTableProps> = ({ tasks }) => {
             <table className="table">
                 <thead>
                     <tr>
+                        <th className="font-bold">
+                            <input type="checkbox" className="checkbox"></input>
+                        </th>
                         <th className="font-bold">Tasks</th>
                         <th className="font-bold">Assignee</th>
                         <th className="font-bold">Priority</th>
@@ -46,34 +50,33 @@ const GridTable: React.FC<GridTableProps> = ({ tasks }) => {
                     {tasks?.map((task: any) => (
                         <tr key={task.id}>
                             <td>
-                                <div className="flex items-center gap-3">
-                                    <div>
-                                        <div className="font-bold">{task.task}</div>
-                                    </div>
-                                </div>
+                                <input type="checkbox" className="checkbox"></input>
+                            </td>
+                            <td className="font-bold">
+                                {task.task}
                             </td>
                             <td>{task.assignee}</td>
                             <td>
-                                <button className="btn btn-warning btn-xs">{task.priority}</button>
+                                <button className={`btn btn-xs ${task.priority === 'High' ? 'btn-error' : task.priority === 'Low' ? 'btn-accent' : 'btn-warning'}`}>{task.priority}</button>
                             </td>
                             <td>{task.deadline}</td>
-                            <td><button className="btn btn-primary btn-xs">{task.status}</button></td>
+                            <td><button className={`btn btn-xs ${task.status === 'In Progress' ? 'btn-info text-white' : 'btn-success text-white'}`}>{task.status}</button></td>
                             <td>
-                                <button className="btn btn-xs" onClick={()=>handleDetails(task)}><MdOutlineDescription /></button>
+                                <button className="btn btn-xs" onClick={() => handleDetails(task)}><MdOutlineDescription /></button>
                             </td>
                             <td>
-                                <button className="btn btn-xs" onClick={()=>handleEdit(task.id)}><FaEdit /></button>
+                                <button className="btn btn-xs" onClick={() => handleEdit(task.id)}><FaEdit /></button>
                             </td>
                             <td>
-                                <button className="btn btn-xs" onClick={()=>handleDelete(task.id)}><MdDelete /></button>
+                                <button className="btn btn-xs" onClick={() => handleDelete(task.id)}><MdDelete /></button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-            {editModalOpen&&<AddTaskDialog setModalOpen={setEditModalOpen} modalOpen={editModalOpen} callType="Edit" taskId={taskId}/>}
-            {deleteModalOpen&&<DeleteTaskDialog setModalOpen={setDeleteModalOpen} modalOpen={deleteModalOpen} taskId={taskId}/>}
-            {detailsModal&&<DetailsModal setModalOpen={setDetailsModal} modalOpen={detailsModal} task={detailsTask}/>}
+            {editModalOpen && <AddTaskDialog setModalOpen={setEditModalOpen} modalOpen={editModalOpen} callType="Edit" taskId={taskId} />}
+            {deleteModalOpen && <DeleteTaskDialog setModalOpen={setDeleteModalOpen} modalOpen={deleteModalOpen} taskId={taskId} />}
+            {detailsModal && <DetailsModal setModalOpen={setDetailsModal} modalOpen={detailsModal} task={detailsTask} />}
         </div>
     )
 }

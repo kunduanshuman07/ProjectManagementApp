@@ -1,6 +1,4 @@
 import { deleteTask } from "../server-actions/deleteTask";
-import AddModalFields from "./AddModalFields";
-import EditModalFields from "./EditModalFields";
 interface DetailsModalProps {
     modalOpen: boolean;
     setModalOpen: (modalOpen: boolean) => void;

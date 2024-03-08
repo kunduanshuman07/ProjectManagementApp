@@ -9,6 +9,7 @@ export async function addTask(formData: any){
     const deadline = formData.get('deadline')
     const assignee = formData.get('assignee')
     const priority = formData.get('priority')
+    const status = formData.get('status')
     const cookieStore = cookies();
     const supabase = createServerComponentClient({cookies: () => cookieStore})
     const {data: {session}} = await supabase.auth.getSession();
@@ -28,7 +29,7 @@ export async function addTask(formData: any){
                 deadline,
                 assignee,
                 priority,
-                status: 'IP',
+                status: status,
                 user_id: user.id
             }
         ])
