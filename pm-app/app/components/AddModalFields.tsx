@@ -1,6 +1,12 @@
 import { AiOutlinePlus } from "react-icons/ai";
 import { addTask } from "../server-actions/addTask";
-const ModalFields = () => {
+interface AddModalProps {
+    setModalOpen: (modalOpen: boolean) => void;
+}
+const AddModalFields:React.FC<AddModalProps> = ({setModalOpen}) => {
+    const handleAddTask=() => {
+        setModalOpen(false);
+    }
     return (
         <form action={addTask}>
             <div className="p-2">
@@ -31,9 +37,9 @@ const ModalFields = () => {
                     </select>
                     <label htmlFor="priority" className="block text-black mb-2 my-6">Priority</label>
                     <select className="select select-bordered w-full max-w-xs ml-5 mt-3" id="priority" name="priority">
-                        <option>Ayushi Srivastava</option>
-                        <option>Han Solo</option>
-                        <option>Greedo</option>
+                        <option>High</option>
+                        <option>Medium</option>
+                        <option>Low</option>
                     </select>
                 </div>
                 <label htmlFor="deadline" className="block text-black mb-2 my-5">Deadline</label>
@@ -41,9 +47,9 @@ const ModalFields = () => {
                     <input type="date" className="grow" placeholder="Deadline" name="deadline" id="deadline" />
                 </label>
             </div>
-            <button className="btn btn-accent mt-5" type="submit">Add Task<AiOutlinePlus /></button>
+            <button className="btn btn-accent mt-5" type="submit" onClick={handleAddTask}>Add Task<AiOutlinePlus /></button>
         </form>
     )
 }
 
-export default ModalFields
+export default AddModalFields

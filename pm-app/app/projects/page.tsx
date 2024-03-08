@@ -1,4 +1,5 @@
 import Drawer from "../components/Drawer";
+import FetchTasks from "../components/FetchTasks";
 import GridTable from "../components/GridTable";
 import ProjectHeader from "../components/ProjectHeader";
 const page = () => {
@@ -6,7 +7,7 @@ const page = () => {
         <div>
             <Drawer />
             <ProjectHeader/>
-            <GridTable />
+            <FetchTasks/>
         </div>
     )
 }

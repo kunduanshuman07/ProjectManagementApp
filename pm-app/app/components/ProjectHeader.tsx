@@ -11,7 +11,7 @@ const ProjectHeader = () => {
     return (
         <div>
             <button className="btn btn-neutral ml-10 mt-10" onClick={handleModalClick}>Add new task <AiOutlinePlus /></button>
-            <AddTaskDialog modalOpen={modalOpen} setModalOpen={setModalOpen} />
+            <AddTaskDialog modalOpen={modalOpen} setModalOpen={setModalOpen} callType="Add"/>
         </div>
     )
 }
