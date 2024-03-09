@@ -11,10 +11,12 @@ const AuthCompRegister = () => {
     const router = useRouter();
     const handleRegister = async () => {
         setLoading(true);
-        const {message} = await registerUser({name, email, password});
-        if(message==='Success'){
+        const { message, data } = await registerUser({ name, email, password });
+        if (message === 'Success' && data && data.length > 0) {
+            localStorage.setItem('user', JSON.stringify(data[0]));
             setLoading(false);
             router.push('/projects');
+            
         }
     }
 

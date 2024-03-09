@@ -1,10 +1,22 @@
-// 'use client'
-// import { Auth } from '@supabase/auth-ui-react'
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
-import React from 'react'
+'use client'
+import { useState } from "react";
 import { FaProjectDiagram } from "react-icons/fa";
+import { loginUser } from "../server-actions/loginUser";
+import { useRouter } from "next/navigation";
 const AuthCompLogin = () => {
-    const supabase = createClientComponentClient();
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+    const [loading, setLoading] = useState<boolean>(false);
+    const router=useRouter()
+    const handleLogin = async() => {
+        setLoading(true);
+        const {message, data} = await loginUser({email, password});
+        if(message==='Login Succesfull'&&data&&data.length>0){
+            localStorage.setItem('user', JSON.stringify(data[0]));
+            setLoading(false);
+            router.push('/projects');
+        }
+    }
     return (
         <div className='flex justify-center items-center h-screen bg-base-200'>
             <div className='card w-96 bg-base-100 shadow-xl p-5'>
@@ -12,19 +24,6 @@ const AuthCompLogin = () => {
                     <FaProjectDiagram />
                     Project Management</button>
                 <div className='card-body'>
-                    {/* <Auth
-                        supabaseClient={supabase}
-                        redirectTo='http://localhost:3000/auth/callback'
-                        providers={[]}
-                        appearance={{
-                            style: {
-                              button: { background: '#16ccae', color: 'white', borderRadius: "10px", padding: "5px 8px", margin: "auto auto", fontWeight: "bold" },
-                              anchor: { color: 'black', fontSize: "12px" },
-                              input: {border: "2px solid #c8cfce", borderRadius: "10px", padding: "10px 5px"},
-                              label: {marginBottom: "4px", fontWeight: "bold"}
-                            },
-                          }}
-                    /> */}
                     <div className="p-2">
                         <label htmlFor="email" className="block text-black mb-2 my-2">Email *</label>
                         <input
@@ -34,6 +33,8 @@ const AuthCompLogin = () => {
                             className="grow border border-gray-600 rounded py-2 px-3 w-full"
                             placeholder="Enter you email address"
                             required
+                            value={email}
+                            onChange={(e)=>setEmail(e.target.value)}
                         />
                         <label htmlFor="password" className="block text-black mb-2 my-5">Password *</label>
                         <input
@@ -43,9 +44,11 @@ const AuthCompLogin = () => {
                             className="grow border border-gray-600 rounded py-2 px-3 w-full mb-3"
                             placeholder="Enter your password"
                             required
+                            value={password}
+                            onChange={(e)=>setPassword(e.target.value)}
                         />
                     </div>
-                    <button className='btn btn-accent mt-5'>Login</button>
+                    <button className='btn btn-accent mt-5' onClick={handleLogin}>Login {loading&&<span className="loading loading-dots loading-md"></span>}</button>
                     <a href='/register' className='text-center underline text-xs font-bold mt-4'>New user? Register</a>
                 </div>
             </div>
