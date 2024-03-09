@@ -21,8 +21,9 @@ const GridTable: React.FC<GridTableProps> = ({ tasks, users }) => {
         setDetailsTask(task);
         setDetailsModal(true);
     }
-    const handleEdit = (taskId: any) => {
+    const handleEdit = (taskId: any, task: any) => {
         setTaskId(taskId);
+        setDetailsTask(task);
         setEditModalOpen(true);
     }
     const handleDelete = (taskId: any) => {
@@ -66,7 +67,7 @@ const GridTable: React.FC<GridTableProps> = ({ tasks, users }) => {
                                 <button className="btn btn-xs" onClick={() => handleDetails(task)}><MdOutlineDescription /></button>
                             </td>
                             <td>
-                                <button className="btn btn-xs" onClick={() => handleEdit(task.id)}><FaEdit /></button>
+                                <button className="btn btn-xs" onClick={() => handleEdit(task.id, task)}><FaEdit /></button>
                             </td>
                             <td>
                                 <button className="btn btn-xs" onClick={() => handleDelete(task.id)}><MdDelete /></button>
@@ -75,7 +76,7 @@ const GridTable: React.FC<GridTableProps> = ({ tasks, users }) => {
                     ))}
                 </tbody>
             </table>
-            {editModalOpen && <AddTaskDialog setModalOpen={setEditModalOpen} modalOpen={editModalOpen} callType="Edit" taskId={taskId} users={users}/>}
+            {editModalOpen && <AddTaskDialog setModalOpen={setEditModalOpen} modalOpen={editModalOpen} callType="Edit" taskId={taskId} users={users} taskDetails={detailsTask}/>}
             {deleteModalOpen && <DeleteTaskDialog setModalOpen={setDeleteModalOpen} modalOpen={deleteModalOpen} taskId={taskId} />}
             {detailsModal && <DetailsModal setModalOpen={setDetailsModal} modalOpen={detailsModal} task={detailsTask} />}
         </div>

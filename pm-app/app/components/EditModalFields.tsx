@@ -5,18 +5,24 @@ interface EditModalProps {
     setModalOpen: (modalOpen: boolean) => void;
     users: any[] | null;
     taskId: any;
+    taskDetails: any;
 }
-const EditModalFields: React.FC<EditModalProps> = ({ setModalOpen, users, taskId }) => {
-    console.log(taskId);
-    const [task, setTask] = useState<string>('');
-    const [task_description, setTask_desc] = useState<string>('');
-    const [assignee, setAssignee] = useState<string>('');
-    const [priority, setPriority] = useState<string>('');
-    const [status, setStatus] = useState<string>('');
-    const [deadline, setDeadline] = useState<any>();
-    const handleEditTask = () => {
-        editTask({task, task_description, assignee, priority, status, deadline, taskId})
-        setModalOpen(false);
+const EditModalFields: React.FC<EditModalProps> = ({ setModalOpen, users, taskId, taskDetails }) => {
+    const [task, setTask] = useState<string>(taskDetails.task);
+    const [task_description, setTask_desc] = useState<string>(taskDetails.task_description);
+    const [assignee, setAssignee] = useState<string>(`${taskDetails.assignee_id}|${taskDetails.assignee}`);
+    const [priority, setPriority] = useState<string>(taskDetails.priority);
+    const [status, setStatus] = useState<string>(taskDetails.status);
+    const [deadline, setDeadline] = useState<any>(taskDetails.deadline);
+    const [loading, setLoading] = useState<boolean>(false);
+    const handleEditTask = async () => {
+        setLoading(true);
+        const {message} = await editTask({task, task_description, assignee, priority, status, deadline, taskId})
+        if(message==='Success'){
+            setLoading(false);
+            setModalOpen(false);
+            window.location.reload();
+        }
     }
     return (
         <>
@@ -81,7 +87,7 @@ const EditModalFields: React.FC<EditModalProps> = ({ setModalOpen, users, taskId
                     <input type="date" className="grow" placeholder="Deadline" name="deadline" id="deadline" value={deadline} onChange={(e)=>setDeadline(e.target.value)}/>
                 </label>
             </div>
-            <button className="btn btn-accent mt-5" onClick={handleEditTask}>Update Task<AiOutlineEdit /></button>
+            <button className="btn btn-accent mt-5" onClick={handleEditTask}>Update Task<AiOutlineEdit />{loading&&<span className="loading loading-dots loading-md"></span>}</button>
         </>
     )
 }

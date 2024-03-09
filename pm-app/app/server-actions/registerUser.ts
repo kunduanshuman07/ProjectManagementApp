@@ -1,30 +1,25 @@
 'use server'
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
 import { cookies } from "next/headers"
-import { redirect } from "next/navigation"
 
-export async function registerUser(formData: any){
-    const name = formData.get('name')
-    const email = formData.get('email')
-    const password = formData.get('password')
+export async function registerUser(formData: any) {
+    const name = formData.name;
+    const email = formData.email;
+    const password = formData.password;
     const cookieStore = cookies();
-    const supabase = createServerComponentClient({cookies: () => cookieStore})
+    const supabase = createServerComponentClient({ cookies: () => cookieStore })
 
-    const {data, error} = await supabase
+    const { data, error } = await supabase
         .from('pm-users')
         .insert([
             {
                 name, email, password
             }
         ])
-    if (error){
-        console.error('Error inserting data', error)
-        return;
+    if (error) {
+        return { message: 'Error' };
     }
+    return { message: 'Success' }
 
-    if(!error){
-        redirect('/projects');
-    }
 
-    return {message: 'Success'}
 }

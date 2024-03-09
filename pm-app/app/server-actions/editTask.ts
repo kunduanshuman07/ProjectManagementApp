@@ -3,19 +3,19 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
 
-export async function editTask(formData: any){
+export async function editTask(formData: any) {
     const task = formData.task;
-    const taskId=formData.taskId;
+    const taskId = formData.taskId;
     const task_description = formData.task_description;
     const deadline = formData.deadline;
     const assigneeValue = formData.assignee;
     const [assigneeId, assigneeName] = assigneeValue.split("|");
     const priority = formData.priority;
-    const status=formData.status;
+    const status = formData.status;
     const cookieStore = cookies();
-    const supabase = createServerComponentClient({cookies: () => cookieStore})
-    console.log(task, taskId, task_description, deadline, assigneeId, assigneeName, priority)
-    const {data, error} = await supabase
+    const supabase = createServerComponentClient({ cookies: () => cookieStore })
+    console.log(task, taskId, task_description, deadline, assigneeId, assigneeName, priority, status)
+    const { data, error } = await supabase
         .from('tasks')
         .update(
             {
@@ -27,8 +27,9 @@ export async function editTask(formData: any){
                 priority,
                 status,
             }
-        ).match({id: taskId});
-    redirect('/projects')
-
-    return {message: 'Success'}
+        ).match({ id: taskId });
+    if (error) {
+        return { message: 'Error' };
+    }
+    return { message: 'Success' }
 }

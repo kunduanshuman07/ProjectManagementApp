@@ -2,10 +2,10 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { addTask } from "../server-actions/addTask";
 interface AddModalProps {
     setModalOpen: (modalOpen: boolean) => void;
-    users: any[]|null;
+    users: any[] | null;
 }
-const AddModalFields:React.FC<AddModalProps> = ({setModalOpen, users}) => {
-    const handleAddTask=() => {
+const AddModalFields: React.FC<AddModalProps> = ({ setModalOpen, users }) => {
+    const handleAddTask = () => {
         setModalOpen(false);
     }
     return (
@@ -32,22 +32,28 @@ const AddModalFields:React.FC<AddModalProps> = ({setModalOpen, users}) => {
                 <div className="flex flex-row">
                     <label htmlFor="assignee" className="block text-black mb-2 my-6">Assignee</label>
                     <select className="select select-bordered w-full max-w-xs mr-2 ml-2 mt-3" id="assignee" name="assignee">
-                        {users?.map((user)=>(
+                        <option value="">Select Assignee</option>
+                        {users?.map((user) => (
                             <option key={user.id} value={`${user.id}|${user.name}`}>{user.name}</option>
                         ))}
                     </select>
+
                     <label htmlFor="priority" className="block text-black mb-2 my-6 ml-2">Priority</label>
                     <select className="select select-bordered w-full max-w-xs ml-2 mt-3" id="priority" name="priority">
+                        <option value="">Select Priority</option>
                         <option>High</option>
                         <option>Med</option>
                         <option>Low</option>
                     </select>
+
                     <label htmlFor="status" className="block text-black mb-2 my-6 ml-2">Status</label>
                     <select className="select select-bordered w-full max-w-xs ml-2 mt-3" id="status" name="status">
+                        <option value="">Select Status</option>
                         <option>In Progress</option>
                         <option>Done</option>
                     </select>
                 </div>
+
                 <label htmlFor="deadline" className="block text-black mb-2 my-5">Deadline</label>
                 <label className="input input-bordered flex items-center gap-2 my-1">
                     <input type="date" className="grow" placeholder="Deadline" name="deadline" id="deadline" />
