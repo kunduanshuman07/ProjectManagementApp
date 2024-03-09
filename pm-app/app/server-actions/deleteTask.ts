@@ -12,11 +12,8 @@ export async function deleteTask(taskId: any){
         .match({id: taskId})
 
     if (error){
-        console.log('Error deleting data', error)
-        return;
+        return {message: 'Error'};
     }
-
-    redirect('/projects')
 
     return {message: 'Success'}
 }

@@ -14,7 +14,6 @@ export async function editTask(formData: any) {
     const status = formData.status;
     const cookieStore = cookies();
     const supabase = createServerComponentClient({ cookies: () => cookieStore })
-    console.log(task, taskId, task_description, deadline, assigneeId, assigneeName, priority, status)
     const { data, error } = await supabase
         .from('tasks')
         .update(
