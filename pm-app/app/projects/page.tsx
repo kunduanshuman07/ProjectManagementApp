@@ -1,16 +1,17 @@
+'use client'
+import { useState } from "react";
 import Drawer from "../components/Drawer";
-import FetchTasks from "../components/FetchTasks";
+import GridTable from "../components/GridTable";
 import ProjectHeader from "../components/ProjectHeader";
-import { fetchUsers } from "../server-actions/fetchUsers";
-const page = async() => {
-    const {data} = await fetchUsers();
+const Page = () => {
+    const [headerTab, setHeaderTab] = useState<string>('All');
     return (
         <div>
             <Drawer />
-            <ProjectHeader users={data}/>
-            <FetchTasks/>
+            <ProjectHeader setHeaderTab={setHeaderTab} headerTab={headerTab}/>
+            <GridTable headerTab={headerTab}/>
         </div>
     )
 }
 
-export default page
+export default Page
