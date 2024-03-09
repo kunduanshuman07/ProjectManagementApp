@@ -22,7 +22,7 @@ const AddTaskDialog: React.FC<ModalProps> = ({ modalOpen, setModalOpen, callType
                     <button className="btn ml-auto" onClick={handleModalClose}>Close</button>
                 </div>
                 {callType==='Add'&&<AddModalFields setModalOpen={setModalOpen} users={users}/>}
-                {callType==='Edit'&&<EditModalFields setModalOpen={setModalOpen} users={users}/>}
+                {callType==='Edit'&&<EditModalFields setModalOpen={setModalOpen} users={users} taskId={taskId}/>}
             </div>
         </dialog>
     )

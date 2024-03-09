@@ -4,28 +4,30 @@ import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
 
 export async function editTask(formData: any){
-    const task = formData.get('task')
-    const taskId=formData.get('taskId')
-    const task_description = formData.get('task_description')
-    const deadline = formData.get('deadline')
-    const assigneeValue = formData.get("assignee");
+    const task = formData.task;
+    const taskId=formData.taskId;
+    const task_description = formData.task_description;
+    const deadline = formData.deadline;
+    const assigneeValue = formData.assignee;
     const [assigneeId, assigneeName] = assigneeValue.split("|");
-    const priority = formData.get('priority')
+    const priority = formData.priority;
+    const status=formData.status;
     const cookieStore = cookies();
     const supabase = createServerComponentClient({cookies: () => cookieStore})
     console.log(task, taskId, task_description, deadline, assigneeId, assigneeName, priority)
-    // const {data, error} = await supabase
-    //     .from('watches')
-    //     .update(
-    //         {
-    //             task,
-    //             task_description,
-    //             deadline,
-    //             assignee,
-    //             priority,
-    //             status: 'IP',
-    //         }
-    //     ).match({id: taskId, user_id: user.id});
+    const {data, error} = await supabase
+        .from('tasks')
+        .update(
+            {
+                task,
+                task_description,
+                deadline,
+                assignee: assigneeName,
+                assignee_id: assigneeId,
+                priority,
+                status,
+            }
+        ).match({id: taskId});
     redirect('/projects')
 
     return {message: 'Success'}
