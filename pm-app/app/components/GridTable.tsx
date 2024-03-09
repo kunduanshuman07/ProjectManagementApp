@@ -26,6 +26,7 @@ const GridTable: React.FC<GridTableProps> = ({ tasks, users }) => {
         setEditModalOpen(true);
     }
     const handleDelete = (taskId: any) => {
+        setTaskId(taskId);
         setDeleteModalOpen(true);
     }
     return (
