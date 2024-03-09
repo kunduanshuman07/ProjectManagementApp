@@ -5,13 +5,13 @@ interface ModalProps {
     setModalOpen: (modalOpen: boolean) => void;
     callType: string;
     taskId: any;
+    users: any[]|null;
 }
 
-const AddTaskDialog: React.FC<ModalProps> = ({ modalOpen, setModalOpen, callType, taskId }) => {
+const AddTaskDialog: React.FC<ModalProps> = ({ modalOpen, setModalOpen, callType, taskId, users }) => {
     const handleModalClose = () => {
         setModalOpen(false);
     }
-    console.log(modalOpen);
     return (
         <dialog id="my_modal_1" className={`modal ${modalOpen ? 'modal-open' : ""}`}>
             <div className="modal-box w-11/12 max-w-5xl">
@@ -21,8 +21,8 @@ const AddTaskDialog: React.FC<ModalProps> = ({ modalOpen, setModalOpen, callType
                     </button>
                     <button className="btn ml-auto" onClick={handleModalClose}>Close</button>
                 </div>
-                {callType==='Add'&&<AddModalFields setModalOpen={setModalOpen}/>}
-                {callType==='Edit'&&<EditModalFields setEditModalOpen={setModalOpen} taskId={taskId}/>}
+                {callType==='Add'&&<AddModalFields setModalOpen={setModalOpen} users={users}/>}
+                {callType==='Edit'&&<EditModalFields setModalOpen={setModalOpen} users={users}/>}
             </div>
         </dialog>
     )

@@ -1,12 +1,13 @@
 import Drawer from "../components/Drawer";
 import FetchTasks from "../components/FetchTasks";
-import GridTable from "../components/GridTable";
 import ProjectHeader from "../components/ProjectHeader";
-const page = () => {
+import { fetchUsers } from "../server-actions/fetchUsers";
+const page = async() => {
+    const {data} = await fetchUsers();
     return (
         <div>
             <Drawer />
-            <ProjectHeader/>
+            <ProjectHeader users={data}/>
             <FetchTasks/>
         </div>
     )

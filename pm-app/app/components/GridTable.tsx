@@ -7,19 +7,19 @@ import AddTaskDialog from "./AddTaskDialog";
 import DeleteTaskDialog from "./DeleteTaskDialog";
 import DetailsModal from "./DetailsModal";
 interface GridTableProps {
-    tasks: any[] | null
+    tasks: any[] | null;
+    users: any[] | null;
 }
 
-const GridTable: React.FC<GridTableProps> = ({ tasks }) => {
+const GridTable: React.FC<GridTableProps> = ({ tasks, users }) => {
     const [editModalOpen, setEditModalOpen] = useState<any>(false)
     const [deleteModalOpen, setDeleteModalOpen] = useState<any>(false)
     const [detailsModal, setDetailsModal] = useState<any>(false);
     const [detailsTask, setDetailsTask] = useState<any>();
     const [taskId, setTaskId] = useState<any>();
     const handleDetails = (task: any) => {
-        console.log(task);
         setDetailsTask(task);
-        setDeleteModalOpen(true);
+        setDetailsModal(true);
     }
     const handleEdit = (taskId: any) => {
         setTaskId(taskId);
@@ -57,7 +57,7 @@ const GridTable: React.FC<GridTableProps> = ({ tasks }) => {
                             </td>
                             <td>{task.assignee}</td>
                             <td>
-                                <button className={`btn btn-xs ${task.priority === 'High' ? 'btn-error' : task.priority === 'Low' ? 'btn-accent' : 'btn-warning'}`}>{task.priority}</button>
+                                <button className={`btn btn-xs text-white ${task.priority === 'High' ? 'btn-error' : task.priority === 'Low' ? 'btn-accent' : 'btn-warning'}`}>{task.priority}</button>
                             </td>
                             <td>{task.deadline}</td>
                             <td><button className={`btn btn-xs ${task.status === 'In Progress' ? 'btn-info text-white' : 'btn-success text-white'}`}>{task.status}</button></td>
@@ -74,7 +74,7 @@ const GridTable: React.FC<GridTableProps> = ({ tasks }) => {
                     ))}
                 </tbody>
             </table>
-            {editModalOpen && <AddTaskDialog setModalOpen={setEditModalOpen} modalOpen={editModalOpen} callType="Edit" taskId={taskId} />}
+            {editModalOpen && <AddTaskDialog setModalOpen={setEditModalOpen} modalOpen={editModalOpen} callType="Edit" taskId={taskId} users={users}/>}
             {deleteModalOpen && <DeleteTaskDialog setModalOpen={setDeleteModalOpen} modalOpen={deleteModalOpen} taskId={taskId} />}
             {detailsModal && <DetailsModal setModalOpen={setDetailsModal} modalOpen={detailsModal} task={detailsTask} />}
         </div>

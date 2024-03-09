@@ -9,7 +9,7 @@ const Drawer = () => {
         router.push('/login');
     }
     return (
-        <div className="navbar bg-base-100">
+        <div className="navbar bg-base-100 shadow-md">
             <div className="navbar-start">
                 <a className="btn btn-ghost text-xl">
                     <FaProjectDiagram/>

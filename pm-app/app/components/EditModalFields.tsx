@@ -1,20 +1,16 @@
-import { AiOutlineEdit} from "react-icons/ai";
+import { AiOutlineEdit } from "react-icons/ai";
 import { editTask } from "../server-actions/editTask";
-
 interface EditModalProps {
-    taskId: string;
-    setEditModalOpen: (modalOpen: boolean) => void;
+    setModalOpen: (modalOpen: boolean) => void;
+    users: any[]|null;
 }
-
-const EditModalFields: React.FC<EditModalProps> = ({ taskId, setEditModalOpen }) => {
-
-    const handleUpdateTask = () => {
-        setEditModalOpen(false);
-    };
-
+const EditModalFields:React.FC<EditModalProps> = ({setModalOpen, users}) => {
+    const handleEditTask=() => {
+        setModalOpen(false);
+    }
     return (
         <form action={editTask}>
-           <div className="p-2">
+            <div className="p-2">
                 <label htmlFor="task" className="block text-black mb-2 my-5">Task Name</label>
                 <input
                     type="text"
@@ -36,9 +32,9 @@ const EditModalFields: React.FC<EditModalProps> = ({ taskId, setEditModalOpen })
                 <div className="flex flex-row">
                     <label htmlFor="assignee" className="block text-black mb-2 my-6">Assignee</label>
                     <select className="select select-bordered w-full max-w-xs mr-2 ml-2 mt-3" id="assignee" name="assignee">
-                        <option>Anshuman Kundu</option>
-                        <option>Han Solo</option>
-                        <option>Greedo</option>
+                        {users?.map((user)=>(
+                            <option key={user.id} value={`${user.id}|${user.name}`}>{user.name}</option>
+                        ))}
                     </select>
                     <label htmlFor="priority" className="block text-black mb-2 my-6 ml-2">Priority</label>
                     <select className="select select-bordered w-full max-w-xs ml-2 mt-3" id="priority" name="priority">
@@ -57,9 +53,9 @@ const EditModalFields: React.FC<EditModalProps> = ({ taskId, setEditModalOpen })
                     <input type="date" className="grow" placeholder="Deadline" name="deadline" id="deadline" />
                 </label>
             </div>
-            <button className="btn btn-accent mt-5" type="submit" onClick={handleUpdateTask}>Update Task<AiOutlineEdit /></button>
+            <button className="btn btn-accent mt-5" type="submit" onClick={handleEditTask}>Update Task<AiOutlineEdit /></button>
         </form>
-    );
-};
+    )
+}
 
-export default EditModalFields;
+export default EditModalFields

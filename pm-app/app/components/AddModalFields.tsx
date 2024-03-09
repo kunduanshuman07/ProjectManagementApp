@@ -2,8 +2,9 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { addTask } from "../server-actions/addTask";
 interface AddModalProps {
     setModalOpen: (modalOpen: boolean) => void;
+    users: any[]|null;
 }
-const AddModalFields:React.FC<AddModalProps> = ({setModalOpen}) => {
+const AddModalFields:React.FC<AddModalProps> = ({setModalOpen, users}) => {
     const handleAddTask=() => {
         setModalOpen(false);
     }
@@ -31,9 +32,9 @@ const AddModalFields:React.FC<AddModalProps> = ({setModalOpen}) => {
                 <div className="flex flex-row">
                     <label htmlFor="assignee" className="block text-black mb-2 my-6">Assignee</label>
                     <select className="select select-bordered w-full max-w-xs mr-2 ml-2 mt-3" id="assignee" name="assignee">
-                        <option>Anshuman Kundu</option>
-                        <option>Han Solo</option>
-                        <option>Greedo</option>
+                        {users?.map((user)=>(
+                            <option key={user.id} value={`${user.id}|${user.name}`}>{user.name}</option>
+                        ))}
                     </select>
                     <label htmlFor="priority" className="block text-black mb-2 my-6 ml-2">Priority</label>
                     <select className="select select-bordered w-full max-w-xs ml-2 mt-3" id="priority" name="priority">
