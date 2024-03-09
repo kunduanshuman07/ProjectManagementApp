@@ -7,6 +7,11 @@ const Drawer = () => {
     const handleLogin = () => {
         router.push('/profile');
     }
+    const handleLogout = () => {
+        localStorage.removeItem('user');
+        localStorage.clear();
+        router.push('/login');
+    }
     return (
         <div className="navbar bg-base-100 bg-neutral text-white">
             <div className="navbar-start">
@@ -31,7 +36,7 @@ const Drawer = () => {
                     </summary>
                     <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52 text-neutral">
                         <li onClick={handleLogin}><a>Profile</a></li>
-                        <li><a>Logout</a></li>
+                        <li onClick={handleLogout}><a>Logout</a></li>
                     </ul>
                 </details>
 
