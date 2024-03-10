@@ -1,8 +1,6 @@
-import React from 'react';
-
 const EmployeeProfile = () => {
   return (
-    <div className="container mx-auto p-6">
+    <div className="container mx-auto p-6 mt-10 ml-10">
       <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <h2 className="text-xl font-bold mb-4">Employee Profile</h2>
         <div className="grid grid-cols-2 gap-4">
