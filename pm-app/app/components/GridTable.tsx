@@ -63,7 +63,7 @@ const GridTable:React.FC<GridTableProps> = ({headerTab}) => {
                                 <input type="checkbox" className="checkbox"></input>
                             </th>
                             <th className="font-bold">Tasks</th>
-                            <th className="font-bold">Assignee</th>
+                            <th className="font-bold">Assigned To</th>
                             <th className="font-bold">Priority</th>
                             <th className="font-bold">Deadline</th>
                             <th className="font-bold">Status</th>

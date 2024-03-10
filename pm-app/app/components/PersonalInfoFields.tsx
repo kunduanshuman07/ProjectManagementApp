@@ -1,4 +1,9 @@
-const PersonalInfoFields = () => {
+
+interface PersonalInfoProps{
+  userDetails: any|null;
+}
+
+const PersonalInfoFields: React.FC<PersonalInfoProps> = ({userDetails}) => {
   return (
     <div className="container mx-auto p-8 mt-10">
       <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">

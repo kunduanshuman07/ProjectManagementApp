@@ -1,7 +1,7 @@
 
 'use client'
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MdEdit } from "react-icons/md";
 import EmploymentFields from "./EmploymentFields";
 import PersonalInfoFields from "./PersonalInfoFields";
@@ -10,6 +10,11 @@ import EditProfile from "./EditProfile";
 
 const ProfileComp = () => {
   const [updateProfile, setUpdateProfile] = useState<boolean>(false);
+  const [userDetails, setUserDetails] = useState<any>();
+  useEffect(()=>{
+    const user = localStorage.getItem('user');
+    setUserDetails(user);
+  },[])
   return (
     <div className="flex flex-row overflow-y-hidden">
       <div className="flex flex-col">
@@ -21,8 +26,8 @@ const ProfileComp = () => {
         <button className="btn ml-10 mt-5" onClick={()=>setUpdateProfile(true)}>Edit Profile <MdEdit /></button>
       </div>
       <div className="flex flex-row">
-        <EmploymentFields />
-        <PersonalInfoFields />
+        <EmploymentFields userDetails={userDetails}/>
+        <PersonalInfoFields userDetails={userDetails}/>
       </div>
       {updateProfile && <EditProfile setModalOpen={setUpdateProfile} modalOpen={updateProfile} />}
     </div>

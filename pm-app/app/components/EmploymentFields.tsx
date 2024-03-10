@@ -1,4 +1,9 @@
-const EmployeeProfile = () => {
+
+interface EmploymentProps{
+  userDetails: any|null;
+}
+
+const EmployeeProfile:React.FC<EmploymentProps> = ({userDetails}) => {
   return (
     <div className="container mx-auto p-6 mt-10 ml-10">
       <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">

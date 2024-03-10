@@ -4,13 +4,13 @@ import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
 
 export async function addTask(formData: any) {
-    const task = formData.get('task')
-    const task_description = formData.get('task_description')
-    const deadline = formData.get('deadline')
-    const assigneeValue = formData.get("assignee");
+    const task = formData.task;
+    const task_description = formData.task_description;
+    const deadline = formData.deadline;
+    const assigneeValue = formData.assignee;
     const [assigneeId, assigneeName] = assigneeValue.split("|");
-    const priority = formData.get('priority')
-    const status = formData.get('status')
+    const priority = formData.priority;
+    const status = formData.status;
     const cookieStore = cookies();
     const supabase = createServerComponentClient({ cookies: () => cookieStore })
 
@@ -27,8 +27,9 @@ export async function addTask(formData: any) {
                 status,
             }
         ])
-
-    redirect('/projects');
-
-    return { message: 'Success' }
+    
+        if (error) {
+            return { message: 'Error' };
+        }
+        return { message: 'Success' }
 }
