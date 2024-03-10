@@ -1,7 +1,6 @@
 'use server'
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
 import { cookies } from "next/headers"
-import { redirect } from "next/navigation"
 
 export async function addTask(formData: any) {
     const task = formData.task;

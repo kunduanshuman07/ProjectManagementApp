@@ -51,9 +51,9 @@ const GridTable:React.FC<GridTableProps> = ({headerTab}) => {
             {loading ?
                 <>
                     <div className="flex flex-row">
-                        <span className="loading loading-infinity loading-lg ml-auto mr-5 text-accent"></span>
+                        <span className="loading loading-bars loading-lg ml-auto mr-5 text-neutral"></span>
                         <h2 className="font-bold text-2xl mt-1">Loading Tasks</h2>
-                        <span className="loading loading-infinity loading-lg text-center ml-5 mr-auto text-accent"></span>
+                        <span className="loading loading-bars loading-lg text-center ml-5 mr-auto text-neutral"></span>
                     </div>
                 </> :
                 <table className="table">
