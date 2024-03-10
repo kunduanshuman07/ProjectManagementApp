@@ -4,12 +4,12 @@ import Drawer from "../components/Drawer";
 import GridTable from "../components/GridTable";
 import ProjectHeader from "../components/ProjectHeader";
 const Page = () => {
-    const [headerTab, setHeaderTab] = useState<string>('All');
+    const [filterValues, setFilterValues] = useState<any>();
     return (
         <div>
             <Drawer />
-            <ProjectHeader setHeaderTab={setHeaderTab} headerTab={headerTab}/>
-            <GridTable headerTab={headerTab}/>
+            <ProjectHeader filterValues={filterValues} setFilterValues={setFilterValues}/>
+            <GridTable filterValues={filterValues}/>
         </div>
     )
 }

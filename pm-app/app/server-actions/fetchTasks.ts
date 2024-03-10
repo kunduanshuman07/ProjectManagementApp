@@ -1,38 +1,17 @@
 'use server'
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers"
-export async function fetchTasks({ tabState }: any) {
+export async function fetchTasks(filterValues: any) {
+    console.log(filterValues);
     const cookieStore = cookies();
     const supabase = createServerComponentClient({ cookies: () => cookieStore });
-    let data;
-    let error;
-    if (tabState === 'All') {
-        const { data: tasks, error } = await supabase
-            .from('tasks')
-            .select('*');
-        if (error) {
-            return { allTasks: [] };
-        }
-        return { allTasks: tasks };
+    const { data: tasks, error } = await supabase
+        .from('tasks')
+        .select('*');
+    if (error) {
+        return { allTasks: [] };
     }
-    if (tabState === 'In Progress') {
-        const { data: tasks, error } = await supabase
-            .from('tasks')
-            .select('*').match({status: 'In Progress'});
-        if (error) {
-            return { allTasks: [] };
-        }
-        return { allTasks: tasks };
-    }
-    if (tabState === 'Completed') {
-        const { data: tasks, error } = await supabase
-            .from('tasks')
-            .select('*').match({status: 'Done'});
-        if (error) {
-            return { allTasks: [] };
-        }
-        return { allTasks: tasks };
-    }
+    return { allTasks: tasks };
 
-    return {allTasks: []};
+    return { allTasks: [] };
 }

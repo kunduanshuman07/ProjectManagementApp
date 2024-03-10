@@ -10,24 +10,24 @@ import { fetchTasks } from "../server-actions/fetchTasks";
 import { fetchUsers } from "../server-actions/fetchUsers";
 
 interface GridTableProps{
-    headerTab: string;
+    filterValues: any;
 }
 
-const GridTable:React.FC<GridTableProps> = ({headerTab}) => {
+const GridTable: React.FC<GridTableProps> = ({filterValues}) => {
     const [users, setUsers] = useState<any>([]);
     const [tasks, setTasks] = useState<any>([]);
     const [loading, setLoading] = useState<boolean>(true);
     useEffect(() => {
         const fetchTasksandUsers = async () => {
             setLoading(true);
-            const { allTasks } = await fetchTasks({tabState:headerTab});
+            const { allTasks } = await fetchTasks(filterValues);
             const { data } = await fetchUsers();
             setTasks(allTasks);
             setUsers(data);
             setLoading(false);
         }
         fetchTasksandUsers();
-    }, [headerTab])
+    }, [filterValues])
     const [editModalOpen, setEditModalOpen] = useState<any>(false)
     const [deleteModalOpen, setDeleteModalOpen] = useState<any>(false)
     const [detailsModal, setDetailsModal] = useState<any>(false);

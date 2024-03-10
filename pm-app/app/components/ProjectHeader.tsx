@@ -4,13 +4,19 @@ import { AiOutlinePlus } from "react-icons/ai";
 import AddTaskDialog from "../components/AddTaskDialog";
 import { useEffect, useState } from "react";
 import { fetchUsers } from "../server-actions/fetchUsers";
-interface ProjectHeaderProps {
-    setHeaderTab: (headerTab: string) => void;
-    headerTab: string;
+import { FaFilter } from "react-icons/fa";
+import FilterDialog from "./FilterDialog";
+
+interface ProjectHeaderProps{
+    filterValues: any;
+    setFilterValues: (filterValues: any) => void;
 }
-const ProjectHeader: React.FC<ProjectHeaderProps> = ({ setHeaderTab, headerTab }) => {
+
+const ProjectHeader:React.FC<ProjectHeaderProps> = ({filterValues, setFilterValues}) => {
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [users, setUsers] = useState<any>([]);
+    const [filterDialogOpen, setFilterDialogOpen] = useState<boolean>(false);
+    console.log(filterValues);
     useEffect(() => {
         const fetchAllUsers = async () => {
             const { data } = await fetchUsers();
@@ -24,12 +30,11 @@ const ProjectHeader: React.FC<ProjectHeaderProps> = ({ setHeaderTab, headerTab }
     return (
         <div>
             <div className="flex flex-row">
-                <button className={`btn btn-secondary ml-12 mt-10  btn-sm ${headerTab==='All'?'text-white':'btn-outline'}`} onClick={()=>setHeaderTab('All')}>All </button>
-                <button className={`btn btn-info ml-12 mt-10  btn-sm ${headerTab==='In Progress'?'text-white':'btn-outline'}`} onClick={()=>setHeaderTab('In Progress')}>In Progress </button>
-                <button className={`btn btn-success ml-12 mt-10  btn-sm ${headerTab==='Completed'?'text-white':'btn-outline'}`} onClick={()=>setHeaderTab('Completed')}>Completed </button>
+                <button className="btn btn-neutral ml-12 mt-10 btn-sm" onClick={()=>setFilterDialogOpen(true)}>Filters <FaFilter/></button>
                 <button className="btn btn-neutral ml-12 mt-10 ml-auto mr-10" onClick={handleModalClick}>Add new task <AiOutlinePlus /></button>
             </div>
             <AddTaskDialog modalOpen={modalOpen} setModalOpen={setModalOpen} callType="Add" taskId={""} users={users} taskDetails={''} />
+            <FilterDialog modalOpen={filterDialogOpen} setModalOpen={setFilterDialogOpen} setFilterValues={setFilterValues} users={users}/>
         </div>
     )
 }
