@@ -1,13 +1,18 @@
 'use client'
 import { useState, useEffect } from "react";
 import { fetchProjects } from "../server-actions/fetchProjects";
-import { FaEye } from "react-icons/fa";
-import { useRouter } from "next/navigation";
-
+import { FaEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
+import EditProjectModal from "./EditProjectModal";
+import { fetchProjectData } from "../server-actions/fetchProjectData";
+import DeleteProject from "./DeleteProject";
 const ProjectTable = () => {
     const [projects, setProjects] = useState<any>([]);
     const [loading, setLoading] = useState<boolean>(false);
-    const router = useRouter();
+    const [modalOpen, setModalOpen] = useState<boolean>(false);
+    const [deleteModal, setdeleteModal] = useState<boolean>(false);
+    const [actionId, setActionId] = useState<any>();
+    const [actionData, setActionData] = useState<any>();
     useEffect(() => {
         const fetchTasksandUsers = async () => {
             setLoading(true);
@@ -17,26 +22,35 @@ const ProjectTable = () => {
         }
         fetchTasksandUsers();
     }, [])
-    const handleViewTasks = () => {
-        router.push('/projects');
+    const handleEdit = async(projectId: any) => {
+        setActionId(projectId);
+        const {message, data} = await fetchProjectData({projectId});
+        setActionData(data);
+        setModalOpen(true);
+    }
+    const handleDelete = (projectId: any) => {
+        setActionId(projectId);
+        setdeleteModal(true);
     }
     return (
-        <div className="overflow-x-auto  p-10">
+        <div className="overflow-x-auto p-10">
             {loading ?
                 <>
                     <div className="flex flex-row">
                         <span className="loading loading-bars loading-lg ml-auto mr-5 text-neutral"></span>
-                        <h2 className="font-bold text-2xl mt-1">Loading Projects</h2>
+                        <h2 className="font-bold text-xl mt-1">Loading Projects</h2>
                         <span className="loading loading-bars loading-lg text-center ml-5 mr-auto text-neutral"></span>
                     </div>
                 </> :
-                <table className="table">
+                <table className="table border rounded">
                     <thead>
                         <tr>
-                            <th className="font-bold bg-neutral text-white">#</th>
-                            <th className="font-bold bg-neutral text-white">Project</th>
-                            <th className="font-bold bg-neutral text-white">Code</th>
-                            <th className="font-bold bg-neutral text-white">View Tasks</th>
+                            <th className="font-bold">#</th>
+                            <th className="font-bold">Project</th>
+                            <th className="font-bold">Code</th>
+                            <th className="font-bold">Project Deadline</th>
+                            <th className="font-bold">Edit</th>
+                            <th className="font-bold">Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -49,11 +63,19 @@ const ProjectTable = () => {
                                 <td>
                                    {project.project_code}
                                 </td>
-                                <td className=""><button className="ml-5 btn btn-xs" onClick={handleViewTasks}><FaEye/></button></td>
+                                <td>{project.deadline}</td>
+                                <td>
+                                    <button className="btn btn-xs" onClick={()=>handleEdit(project.id)}><FaEdit /></button>
+                                </td>
+                                <td>
+                                    <button className="btn btn-xs" onClick={()=>handleDelete(project.id)}><MdDelete /></button>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>}
+                {modalOpen && <EditProjectModal modalOpen={modalOpen} setModalOpen={setModalOpen} projectData={actionData} projectId={actionId}/>}
+                {deleteModal && <DeleteProject modalOpen={deleteModal} setModalOpen={setdeleteModal} projectId={actionId}/>}
         </div>
     )
 }

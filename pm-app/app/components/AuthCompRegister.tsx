@@ -15,7 +15,7 @@ const AuthCompRegister = () => {
         if (message === 'Success' && data && data.length > 0) {
             localStorage.setItem('user', JSON.stringify(data[0]));
             setLoading(false);
-            router.push('/projects');
+            router.push('/');
             
         }
     }
@@ -25,7 +25,7 @@ const AuthCompRegister = () => {
                 <div className='card w-96 bg-base-100 shadow-xl p-5'>
                     <button className="btn btn-neutral font-bold text-center mt-5 ">
                         <FaProjectDiagram />
-                        Project Management</button>
+                        Project Management App</button>
                     <div className='card-body'>
                         <div className="p-2">
                             <label htmlFor="name" className="block text-black mb-2 my-2">Name *</label>

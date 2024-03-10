@@ -2,8 +2,14 @@ import React, { useState } from 'react'
 import ProjectTable from './ProjectTable'
 import { AiOutlinePlus } from 'react-icons/ai'
 import AddProjectModal from './AddProjectModal';
+import { FaEye } from 'react-icons/fa';
+import { useRouter } from "next/navigation";
 const Dashboard = () => {
     const [modalOpen, setModalOpen] = useState<boolean>(false);
+    const router = useRouter();
+    const handleViewTasks = () => {
+        router.push('/projects');
+    }
     return (
         <div className='flex flex-col'>
             <div className='pb-10 bg-neutral'>
@@ -52,9 +58,9 @@ const Dashboard = () => {
                     </div>
                 </div>
             </div>
-            <div className='flex flex-row mt-5 ml-5'>
-                <h1 className='mt-5 ml-5 font-bold bg-warning text-white w-60 p-3 rounded text-center'>Project Details</h1>
+            <div className='flex flex-row mt-5'>
                 <button className='btn mt-5 ml-10' onClick={() => setModalOpen(true)}>Add New Project <AiOutlinePlus /></button>
+                <button className='btn mt-5 ml-10 btn-neutral' onClick={handleViewTasks}>View All Tasks <FaEye/></button>
             </div>
             <ProjectTable />
             {modalOpen && <AddProjectModal modalOpen={modalOpen} setModalOpen={setModalOpen} />}

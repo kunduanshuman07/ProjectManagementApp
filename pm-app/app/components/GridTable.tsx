@@ -52,11 +52,11 @@ const GridTable:React.FC<GridTableProps> = ({headerTab}) => {
                 <>
                     <div className="flex flex-row">
                         <span className="loading loading-bars loading-lg ml-auto mr-5 text-neutral"></span>
-                        <h2 className="font-bold text-2xl mt-1">Loading Tasks</h2>
+                        <h2 className="font-bold text-xl mt-1">Loading Tasks</h2>
                         <span className="loading loading-bars loading-lg text-center ml-5 mr-auto text-neutral"></span>
                     </div>
                 </> :
-                <table className="table">
+                <table className="table border rounded">
                     <thead>
                         <tr>
                             <th className="font-bold">

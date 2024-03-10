@@ -14,7 +14,7 @@ const AuthCompLogin = () => {
         if(message==='Login Succesfull'&&data&&data.length>0){
             localStorage.setItem('user', JSON.stringify(data[0]));
             setLoading(false);
-            router.push('/projects');
+            router.push('/');
         }
     }
     return (
@@ -22,7 +22,7 @@ const AuthCompLogin = () => {
             <div className='card w-96 bg-base-100 shadow-xl p-5'>
                 <button className="btn btn-neutral font-bold text-center mt-5 ">
                     <FaProjectDiagram />
-                    Project Management</button>
+                    Project Management App</button>
                 <div className='card-body'>
                     <div className="p-2">
                         <label htmlFor="email" className="block text-black mb-2 my-2">Email *</label>

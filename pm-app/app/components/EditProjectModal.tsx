@@ -1,23 +1,26 @@
 import { useState } from "react";
-import { AiOutlinePlus } from "react-icons/ai";
-import { addProject } from "../server-actions/addProject";
+import { AiOutlineEdit } from "react-icons/ai";
+import { editProject } from "../server-actions/editProject";
 
 interface ModalProps {
     modalOpen: boolean;
     setModalOpen: (modalOpen: boolean) => void;
+    projectId: any;
+    projectData: any;
 }
 
-const AddProjectModal: React.FC<ModalProps> = ({ modalOpen, setModalOpen }) => {
-    const [projectTitle, setProjectTitle] = useState<string>('');
-    const [projectCode, setProjectCode] = useState<string>('');
-    const [deadline, setDeadline] = useState<any>();
+const EditProjectModal: React.FC<ModalProps> = ({ modalOpen, setModalOpen, projectId, projectData }) => {
+    console.log(projectId, projectData);
+    const [projectTitle, setProjectTitle] = useState<string>(projectData[0].project_title);
+    const [projectCode, setProjectCode] = useState<string>(projectData[0].project_code);
+    const [deadline, setDeadline] = useState<any>(projectData[0].deadline);
     const [loading, setLoading] = useState<boolean>(false);
     const handleModalClose = () => {
         setModalOpen(false);
     }
-    const handleAddProject = async() => {
+    const handleUpdateProject = async() => {
         setLoading(true);
-        const {message} = await addProject({projectTitle, projectCode, deadline});
+        const {message} = await editProject({projectTitle, projectCode, deadline, projectId});
         if(message==='Success'){
             setLoading(false);
             setModalOpen(false);
@@ -61,10 +64,10 @@ const AddProjectModal: React.FC<ModalProps> = ({ modalOpen, setModalOpen }) => {
                     <input type="date" className="grow" placeholder="Deadline" name="deadline" id="deadline" value={deadline} onChange={(e)=>setDeadline(e.target.value)}/>
                 </label>
                 </div>
-                <button className="btn btn-accent mt-5" onClick={handleAddProject}>Add Project<AiOutlinePlus />{loading&&<span className="loading loading-dots loading-md"></span>}</button>
+                <button className="btn btn-accent mt-5" onClick={handleUpdateProject}>Update Project<AiOutlineEdit />{loading&&<span className="loading loading-dots loading-md"></span>}</button>
             </div>
         </dialog>
     )
 }
 
-export default AddProjectModal
+export default EditProjectModal
