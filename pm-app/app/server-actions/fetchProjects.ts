@@ -8,7 +8,7 @@ export async function fetchProjects() {
 
     const { data: projects, error } = await supabase
         .from('projects')
-        .select('*');
+        .select('*').order('deadline', { ascending: true });;
 
     if (error) {
         return { message: 'Error', allProjects: [] };

@@ -7,7 +7,7 @@ import { fetchTasks } from "../server-actions/fetchTasks";
 import { fetchUsers } from "../server-actions/fetchUsers";
 
 const Page = () => {
-    const [filterValues, setFilterValues] = useState<any>();
+    const [filterValues, setFilterValues] = useState<any>(null);
     const [users, setUsers] = useState<any>([]);
     const [tasks, setTasks] = useState<any>([]);
     const [loading, setLoading] = useState<boolean>(true);

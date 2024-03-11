@@ -3,31 +3,26 @@
 
 import { useEffect, useState } from "react";
 import { MdEdit } from "react-icons/md";
-import EmploymentFields from "./EmploymentFields";
 import PersonalInfoFields from "./PersonalInfoFields";
 import EditProfile from "./EditProfile";
 
 
 const ProfileComp = () => {
   const [updateProfile, setUpdateProfile] = useState<boolean>(false);
-  const [userDetails, setUserDetails] = useState<any>();
-  useEffect(()=>{
-    const user = localStorage.getItem('user');
-    setUserDetails(user);
-  },[])
+  const userString = localStorage.getItem("user");
+  const user = userString ? JSON.parse(userString) : null;
   return (
     <div className="flex flex-row overflow-y-hidden">
       <div className="flex flex-col">
         <div className="avatar placeholder">
           <div className="bg-neutral text-neutral-content rounded-full w-40 h-40 mt-20 ml-10">
-            <span className="text-3xl">D</span>
+            <span className="text-3xl">{user?.name[0]}</span>
           </div>
         </div>
         <button className="btn ml-10 mt-5" onClick={()=>setUpdateProfile(true)}>Edit Profile <MdEdit /></button>
       </div>
-      <div className="flex flex-row">
-        <EmploymentFields userDetails={userDetails}/>
-        <PersonalInfoFields userDetails={userDetails}/>
+      <div className="flex flex-row ml-10">
+        <PersonalInfoFields />
       </div>
       {updateProfile && <EditProfile setModalOpen={setUpdateProfile} modalOpen={updateProfile} />}
     </div>

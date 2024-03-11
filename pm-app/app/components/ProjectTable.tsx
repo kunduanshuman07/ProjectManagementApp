@@ -61,7 +61,7 @@ const ProjectTable = () => {
                                 </td>
                                 <td className="font-bold">{project.project_title}</td>
                                 <td>
-                                   {project.project_code}
+                                   <button className="btn btn-xs btn-primary">{project.project_code}</button>
                                 </td>
                                 <td>{project.deadline}</td>
                                 <td>

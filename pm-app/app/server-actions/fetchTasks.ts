@@ -6,7 +6,7 @@ export async function fetchTasks() {
     const supabase = createServerComponentClient({ cookies: () => cookieStore });
     const { data: tasks, error } = await supabase
         .from('tasks')
-        .select('*');
+        .select('*').order('deadline', { ascending: true });
     if (error) {
         return { allTasks: [] };
     }
