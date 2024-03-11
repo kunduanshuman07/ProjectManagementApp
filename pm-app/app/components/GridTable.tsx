@@ -2,32 +2,18 @@
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { MdOutlineDescription } from "react-icons/md";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import AddTaskDialog from "./AddTaskDialog";
 import DeleteTaskDialog from "./DeleteTaskDialog";
 import DetailsModal from "./DetailsModal";
-import { fetchTasks } from "../server-actions/fetchTasks";
-import { fetchUsers } from "../server-actions/fetchUsers";
 
 interface GridTableProps{
-    filterValues: any;
+    tasks: any;
+    users: any;
+    loading: boolean;
 }
 
-const GridTable: React.FC<GridTableProps> = ({filterValues}) => {
-    const [users, setUsers] = useState<any>([]);
-    const [tasks, setTasks] = useState<any>([]);
-    const [loading, setLoading] = useState<boolean>(true);
-    useEffect(() => {
-        const fetchTasksandUsers = async () => {
-            setLoading(true);
-            const { allTasks } = await fetchTasks(filterValues);
-            const { data } = await fetchUsers();
-            setTasks(allTasks);
-            setUsers(data);
-            setLoading(false);
-        }
-        fetchTasksandUsers();
-    }, [filterValues])
+const GridTable: React.FC<GridTableProps> = ({tasks, users, loading}) => {
     const [editModalOpen, setEditModalOpen] = useState<any>(false)
     const [deleteModalOpen, setDeleteModalOpen] = useState<any>(false)
     const [detailsModal, setDetailsModal] = useState<any>(false);

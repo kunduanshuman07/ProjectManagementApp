@@ -9,13 +9,11 @@ interface FilterDialogProps {
 }
 
 const FilterDialog: React.FC<FilterDialogProps> = ({ modalOpen, setModalOpen, setFilterValues, users }) => {
-    const [loading, setLoading] = useState<boolean>(false);
     const [statusFilter, setStatusFilter] = useState<string>("All");
     const [priorityFilter, setPriorityFilter] = useState<string>("All");
     const [assigneeFilter, setAssigneeFilter] = useState<string>("");
     const [deadlineFrom, setDeadlineFrom] = useState<string>("");
     const [deadlineTo, setDeadlineTo] = useState<string>("");
-
     const handleModalClose = () => {
         setModalOpen(false);
     };
@@ -24,7 +22,10 @@ const FilterDialog: React.FC<FilterDialogProps> = ({ modalOpen, setModalOpen, se
         setFilterValues({statusFilter, priorityFilter, assigneeFilter, deadlineFrom, deadlineTo});
         handleModalClose();
     };
-
+    const handleClearFilters = () => {
+        setFilterValues(null);
+        handleModalClose();
+    }
     return (
         <dialog id="my_modal_1" className={`modal ${modalOpen ? 'modal-open' : ""}`}>
             <div className="modal-box w-11/12 max-w-xl">
@@ -62,8 +63,8 @@ const FilterDialog: React.FC<FilterDialogProps> = ({ modalOpen, setModalOpen, se
                                 type="radio"
                                 name="statusFilter"
                                 className="radio radio-secondary"
-                                value="Completed"
-                                checked={statusFilter === "Completed"}
+                                value="Done"
+                                checked={statusFilter === "Done"}
                                 onChange={(e) => setStatusFilter(e.target.value)}
                             />
                             <h2 className="ml-3">Completed</h2>
@@ -98,8 +99,8 @@ const FilterDialog: React.FC<FilterDialogProps> = ({ modalOpen, setModalOpen, se
                                 type="radio"
                                 name="priorityFilter"
                                 className="radio radio-accent"
-                                value="Medium"
-                                checked={priorityFilter === "Medium"}
+                                value="Med"
+                                checked={priorityFilter === "Med"}
                                 onChange={(e) => setPriorityFilter(e.target.value)}
                             />
                             <h2 className="ml-3">Medium</h2>
@@ -149,9 +150,14 @@ const FilterDialog: React.FC<FilterDialogProps> = ({ modalOpen, setModalOpen, se
                         onChange={(e) => setDeadlineTo(e.target.value)}
                     />
                 </div>
+                <div className="flex flex-row">
                 <button className="btn btn-neutral btn-sm mt-5" onClick={handleSetFilters}>
                     Set Filters
                 </button>
+                <button className="btn btn-error text-white btn-sm mt-5 ml-auto" onClick={handleClearFilters}>
+                    Clear All Filters
+                </button>
+                </div>
             </div>
         </dialog>
     );

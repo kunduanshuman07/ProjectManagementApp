@@ -1,8 +1,7 @@
 'use server'
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers"
-export async function fetchTasks(filterValues: any) {
-    console.log(filterValues);
+export async function fetchTasks() {
     const cookieStore = cookies();
     const supabase = createServerComponentClient({ cookies: () => cookieStore });
     const { data: tasks, error } = await supabase

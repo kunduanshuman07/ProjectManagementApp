@@ -16,7 +16,6 @@ const ProjectHeader:React.FC<ProjectHeaderProps> = ({filterValues, setFilterValu
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [users, setUsers] = useState<any>([]);
     const [filterDialogOpen, setFilterDialogOpen] = useState<boolean>(false);
-    console.log(filterValues);
     useEffect(() => {
         const fetchAllUsers = async () => {
             const { data } = await fetchUsers();
