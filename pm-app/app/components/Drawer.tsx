@@ -3,8 +3,6 @@ import { useRouter } from 'next/navigation'
 import { FaProjectDiagram } from "react-icons/fa";
 
 const Drawer = () => {
-    const userString = localStorage?.getItem("user");
-    const user = userString ? JSON.parse(userString) : null;
     const router = useRouter();
     const handleProfile = () => {
         router.push('/profile');
@@ -39,7 +37,7 @@ const Drawer = () => {
             <div className="navbar-end avatar placeholder">
                 <details className="dropdown dropdown-bottom dropdown-end">
                     <summary className="btn btn-circle">
-                       {user?.name[0]}
+                       A
                     </summary>
                     <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52 text-neutral">
                         <li onClick={handleProfile}><a>Profile</a></li>
