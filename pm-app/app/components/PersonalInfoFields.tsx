@@ -1,11 +1,11 @@
+import { useUser } from "../UserContext";
 
 interface PersonalInfoProps {
   
 }
 
 const PersonalInfoFields: React.FC<PersonalInfoProps> = () => {
-  const userString = localStorage.getItem("user");
-  const user = userString ? JSON.parse(userString) : null;
+  const {user} = useUser();
   return (
     <div className="container mx-auto p-8 mt-10 flex flex-row">
       <div className="bg-white shadow-xl rounded p-10 mb-4">

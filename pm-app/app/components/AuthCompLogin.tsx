@@ -3,7 +3,9 @@ import { useState } from "react";
 import { FaProjectDiagram } from "react-icons/fa";
 import { loginUser } from "../server-actions/loginUser";
 import { useRouter } from "next/navigation";
+import { useUser } from "../UserContext";
 const AuthCompLogin = () => {
+    const {user, setUser} = useUser();
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
@@ -12,7 +14,7 @@ const AuthCompLogin = () => {
         setLoading(true);
         const {message, data} = await loginUser({email, password});
         if(message==='Login Succesfull'&&data&&data.length>0){
-            localStorage.setItem('user', JSON.stringify(data[0]));
+            setUser(data[0]);
             setLoading(false);
             router.push('/');
         }

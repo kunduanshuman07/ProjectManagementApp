@@ -1,15 +1,15 @@
 'use client'
 import { useRouter } from 'next/navigation'
 import { FaProjectDiagram } from "react-icons/fa";
-
+import { useUser } from '../UserContext';
 const Drawer = () => {
     const router = useRouter();
+    const {user, setUser} = useUser();
     const handleProfile = () => {
         router.push('/profile');
     }
     const handleLogout = () => {
-        localStorage.removeItem('user');
-        localStorage.clear();
+        setUser(null);
         router.push('/login');
     }
     const handleDashboard = () => {
@@ -37,7 +37,7 @@ const Drawer = () => {
             <div className="navbar-end avatar placeholder">
                 <details className="dropdown dropdown-bottom dropdown-end">
                     <summary className="btn btn-circle">
-                       A
+                       {user?.name[0]}
                     </summary>
                     <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52 text-neutral">
                         <li onClick={handleProfile}><a>Profile</a></li>

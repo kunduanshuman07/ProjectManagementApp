@@ -3,7 +3,9 @@ import React, { useState } from 'react'
 import { FaProjectDiagram } from "react-icons/fa";
 import { registerUser } from '../server-actions/registerUser';
 import { useRouter } from 'next/navigation'
+import { useUser } from '../UserContext';
 const AuthCompRegister = () => {
+    const {user, setUser} = useUser();
     const [loading, setLoading] = useState<boolean>(false);
     const [name, setName] = useState<string>('');
     const [email, setEmail] = useState<string>('');
@@ -13,7 +15,7 @@ const AuthCompRegister = () => {
         setLoading(true);
         const { message, data } = await registerUser({ name, email, password });
         if (message === 'Success' && data && data.length > 0) {
-            localStorage.setItem('user', JSON.stringify(data[0]));
+            setUser(data[0]);
             setLoading(false);
             router.push('/');
             
