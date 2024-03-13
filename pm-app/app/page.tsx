@@ -10,13 +10,16 @@ export default function Home() {
   const router = useRouter();
   const [user, setUser] = useState<any>(null);
   useEffect(() => {
-    if (localStorage?.getItem('user') === null) {
-      router.push('/login');
+    // Check if window is defined (running in the browser)
+    if (typeof window !== 'undefined') {
+      const storedUser = localStorage?.getItem('user');
+      if (storedUser === null) {
+        router.push('/login');
+      } else {
+        setUser('logged in');
+      }
     }
-    else {
-      setUser('logged in');
-    }
-  }, [])
+  }, [router]);
   return (
     <main>
       {user === null ?
