@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation'
 import { FaProjectDiagram } from "react-icons/fa";
 
 const Drawer = () => {
-    const userString = localStorage.getItem("user");
+    const userString = localStorage?.getItem("user");
     const user = userString ? JSON.parse(userString) : null;
     const router = useRouter();
     const handleProfile = () => {
