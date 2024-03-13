@@ -10,7 +10,7 @@ export default function Home() {
   const router = useRouter();
   const [user, setUser] = useState<any>(null);
   useEffect(() => {
-    if (localStorage.getItem('user') === null) {
+    if (localStorage?.getItem('user') === null) {
       router.push('/login');
     }
     else {
