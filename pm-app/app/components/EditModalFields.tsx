@@ -53,7 +53,7 @@ const EditModalFields: React.FC<EditModalProps> = ({ setModalOpen, users, taskId
                 <div className={`flex ${screenWidth<1000? "flex-col": "flex-row"}`}>
                     <label htmlFor="assignee" className="block text-black mb-2 my-6">Assignee</label>
                     <select
-                        className="select select-bordered w-full max-w-xs mr-2 ml-2 mt-3"
+                        className={`select select-bordered w-full max-w-xs mt-3 ${screenWidth<1000?'':'mr-2 ml-2'}`}
                         id="assignee"
                         name="assignee"
                         value={assignee}
@@ -66,7 +66,7 @@ const EditModalFields: React.FC<EditModalProps> = ({ setModalOpen, users, taskId
                         ))}
                     </select>
                     <label htmlFor="priority" className="block text-black mb-2 my-6 ml-2">Priority</label>
-                    <select className="select select-bordered w-full max-w-xs ml-2 mt-3" id="priority" name="priority"
+                    <select className={`select select-bordered w-full max-w-xs mt-3 ${screenWidth<1000?'':'mr-2 ml-2'}`} id="priority" name="priority"
                          value={priority}
                          onChange={(e) => setPriority(e.target.value)}
                     >
@@ -75,7 +75,7 @@ const EditModalFields: React.FC<EditModalProps> = ({ setModalOpen, users, taskId
                         <option>Low</option>
                     </select>
                     <label htmlFor="status" className="block text-black mb-2 my-6 ml-2">Status</label>
-                    <select className="select select-bordered w-full max-w-xs ml-2 mt-3" id="status" name="status"
+                    <select className={`select select-bordered w-full max-w-xs mt-3 ${screenWidth<1000?'':'mr-2 ml-2'}`} id="status" name="status"
                          value={status}
                          onChange={(e) => setStatus(e.target.value)}
                     >

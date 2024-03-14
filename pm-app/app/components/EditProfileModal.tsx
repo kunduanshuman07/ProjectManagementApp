@@ -6,6 +6,7 @@ interface EditProfileProps {
     user: any;
 }
 const EditProfileModal: React.FC<EditProfileProps> = ({ setModalOpen, user }) => {
+  const screenWidth = typeof window !== 'undefined' ? window.screen.availWidth : 1001;
     const [name, setName] = useState<string>(user?.name);
     const [dob, setDob] = useState<any>(user?.dob);
     const [gender, setGender] = useState<string>(user?.gender);
@@ -40,7 +41,7 @@ const EditProfileModal: React.FC<EditProfileProps> = ({ setModalOpen, user }) =>
                     placeholder="Name"
                     required
                 />
-                <div className="flex flex-row">
+                <div className={`flex ${screenWidth<1000?'flex-col':'flex-row'}`}>
                     <div className="flex flex-col">
                         <label htmlFor="phone" className="block text-black mb-2 my-5">Phone</label>
                         <input
@@ -54,7 +55,7 @@ const EditProfileModal: React.FC<EditProfileProps> = ({ setModalOpen, user }) =>
                             required
                         />
                     </div>
-                    <div className="flex flex-col ml-4">
+                    <div className={`flex flex-col ${screenWidth<1000?'':'ml-4'}`}>
                         <label htmlFor="gender" className="block text-black mb-2 my-5">Gender</label>
                         <select className="select select-bordered w-full max-w-xs my-1" id="gender" name="gender"
                             value={gender}
@@ -65,14 +66,14 @@ const EditProfileModal: React.FC<EditProfileProps> = ({ setModalOpen, user }) =>
                             <option>Others</option>
                         </select>
                     </div>
-                    <div className="flex flex-col ml-4">
+                    <div className={`flex flex-col ${screenWidth<1000?'':'ml-4'}`}>
                         <label htmlFor="dob" className="block text-black mb-2 my-5">Date of Birth</label>
                         <label className="input input-bordered flex items-center gap-2 my-1">
                             <input type="date" className="grow" placeholder="DOB" name="dob" id="dob" value={dob} onChange={(e) => setDob(e.target.value)} />
                         </label>
                     </div>
                 </div>
-                <div className="flex flex-row mt-2">
+                <div className={`flex mt-2 ${screenWidth<1000?'flex-col':'flex-row'}`}>
                     <div className="flex flex-col">
                         <label htmlFor="tenth" className="block text-black mb-2 my-5">Class 10th (on a scale of 100)</label>
                         <input
@@ -86,7 +87,7 @@ const EditProfileModal: React.FC<EditProfileProps> = ({ setModalOpen, user }) =>
                             required
                         />
                     </div>
-                    <div className="flex flex-col ml-4">
+                    <div className={`flex flex-col ${screenWidth<1000?'':'ml-4'}`}>
                         <label htmlFor="twelth" className="block text-black mb-2 my-5">Class 12th (on a scale of 100)</label>
                         <input
                             type="text"
@@ -99,7 +100,7 @@ const EditProfileModal: React.FC<EditProfileProps> = ({ setModalOpen, user }) =>
                             required
                         />
                     </div>
-                    <div className="flex flex-col ml-4">
+                    <div className={`flex flex-col ${screenWidth<1000?'':'ml-4'}`}>
                         <label htmlFor="graduation" className="block text-black mb-2 my-5">Graduation (on a scale of 10)</label>
                         <input
                             type="text"
@@ -113,7 +114,7 @@ const EditProfileModal: React.FC<EditProfileProps> = ({ setModalOpen, user }) =>
                         />
                     </div>
                 </div>
-                <div className="flex flex-row">
+                <div className={`flex ${screenWidth<1000?'flex-col':'flex-row'}`}>
                     <div className="flex flex-col">
                         <label htmlFor="city" className="block text-black mb-2 my-5">City</label>
                         <input
@@ -127,7 +128,7 @@ const EditProfileModal: React.FC<EditProfileProps> = ({ setModalOpen, user }) =>
                             required
                         />
                     </div>
-                    <div className="flex flex-col ml-4">
+                    <div className={`flex flex-col ${screenWidth<1000?'':'ml-4'}`}>
                         <label htmlFor="state" className="block text-black mb-2 my-5">State</label>
                         <input
                             type="text"
@@ -140,7 +141,7 @@ const EditProfileModal: React.FC<EditProfileProps> = ({ setModalOpen, user }) =>
                             required
                         />
                     </div>
-                    <div className="flex flex-col ml-4">
+                    <div className={`flex flex-col ${screenWidth<1000?'':'ml-4'}`}>
                         <label htmlFor="nation" className="block text-black mb-2 my-5">Nationality</label>
                         <input
                             type="text"
@@ -155,7 +156,7 @@ const EditProfileModal: React.FC<EditProfileProps> = ({ setModalOpen, user }) =>
                     </div>
                 </div>
             </div>
-            <button className="btn btn-accent mt-5" onClick={handleEditProfile}>Update Profile<AiOutlineEdit />{loading && <span className="loading loading-dots loading-md"></span>}</button>
+            <button className="btn btn-accent mt-5 font-bold text-white ml-2" onClick={handleEditProfile}>Update Profile<AiOutlineEdit />{loading && <span className="loading loading-dots loading-md"></span>}</button>
         </>
     )
 }

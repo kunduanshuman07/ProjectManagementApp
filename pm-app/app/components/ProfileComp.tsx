@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 
 const ProfileComp = () => {
   const { data } = useSession();
+  const screenWidth = typeof window !== 'undefined' ? window.screen.availWidth : 1001;
   const router = useRouter();
   const [user, setUser] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(true)
@@ -38,7 +39,7 @@ const ProfileComp = () => {
         loading ? <></> :
           <>
             <div className="flex flex-col bg-neutral p-5">
-              <button className="btn ml-10 mt-5 w-1/5 btn-info text-white font-bold" onClick={() => setUpdateProfile(true)}>Edit Profile <MdEdit /></button>
+              <button className={`btn btn-info text-white font-bold ${screenWidth<1000?'':'mt-3 w-1/5 ml-10'}`} onClick={() => setUpdateProfile(true)}>Edit Profile <MdEdit /></button>
             </div>
           </>}
       <PersonalInfoFields user={user} setUser={setUser} loading={loading} />

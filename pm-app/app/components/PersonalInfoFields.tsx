@@ -20,8 +20,8 @@ interface FieldProps {
 }
 
 const PersonalInfoFields: React.FC<FieldProps> = ({ user, setUser, loading }) => {
+  const screenWidth = typeof window !== 'undefined' ? window.screen.availWidth : 1001;
   const { data } = useSession();
-  const router = useRouter();
   return (
     <div className="container flex flex-col">
       {
@@ -33,8 +33,8 @@ const PersonalInfoFields: React.FC<FieldProps> = ({ user, setUser, loading }) =>
             </div>
             :
             <>
-              <div className="flex flex-row p-5 mt-5">
-                <div className="w-1/3 bg-white rounded-lg shadow-md p-6 flex flex-col">
+              <div className={`flex p-5 mt-5 ${screenWidth<1000? 'flex-col': 'flex-row'}`}>
+                <div className={`bg-white rounded-lg shadow-md p-6 flex flex-col ${screenWidth<1000?'': 'w-1/3'}`}>
                   <button className="text-xl font-bold mb-3 text-gray-800 text-center btn mx-auto">Personal Details</button>
                   <div className="text-gray-700 mt-5 flex flex-col">
                     <button className="btn btn-success text-white font-bold btn-sm"><SiNamecheap /> Name: {user.name}</button>
@@ -46,7 +46,7 @@ const PersonalInfoFields: React.FC<FieldProps> = ({ user, setUser, loading }) =>
                     <button className="btn btn-success text-white font-bold btn-sm mt-2"><FaBirthdayCake /> Date of Birth: {user.dob}</button>
                   </div>
                 </div>
-                <div className="w-1/3 bg-white rounded-lg shadow-md p-6 ml-5 flex flex-col">
+                <div className={`bg-white rounded-lg shadow-md p-6 flex flex-col ${screenWidth<1000?'mt-2': 'w-1/3'}`}>
                   <button className="text-xl font-bold mb-3 text-gray-800 text-center btn mx-auto">Education</button>
                   <div className="text-gray-700 mt-5 flex flex-col">
                     <button className="btn btn-success text-white font-bold btn-sm"><GiArmorDowngrade /> 10th Grade: {user.tenth}%</button>
@@ -54,7 +54,7 @@ const PersonalInfoFields: React.FC<FieldProps> = ({ user, setUser, loading }) =>
                     <button className="btn btn-success text-white font-bold btn-sm mt-2"><GiUpgrade /> Graduation: {user.graduation} GPA</button>
                   </div>
                 </div>
-                <div className="w-1/3 bg-white rounded-lg shadow-md p-6 flex flex-col">
+                <div className={`bg-white rounded-lg shadow-md p-6 flex flex-col ${screenWidth<1000?'mt-2': 'w-1/3'}`}>
                   <button className="text-xl font-bold mb-3 text-gray-800 text-center btn mx-auto">Address</button>
                   <div className="text-gray-700 mt-5 flex flex-col">
                     <button className="btn btn-success text-white font-bold btn-sm"><FaCity /> City: {user.city}</button>
