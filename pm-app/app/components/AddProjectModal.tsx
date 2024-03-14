@@ -10,6 +10,7 @@ interface ModalProps {
 }
 
 const AddProjectModal: React.FC<ModalProps> = ({ modalOpen, setModalOpen, loginverification }) => {
+    const screenWidth = typeof window !== 'undefined' ? window.screen.availWidth : 1001;
     const router = useRouter();
     const [projectTitle, setProjectTitle] = useState<string>('');
     const [projectCode, setProjectCode] = useState<string>('');
@@ -33,7 +34,7 @@ const AddProjectModal: React.FC<ModalProps> = ({ modalOpen, setModalOpen, loginv
     return (
         <dialog id="my_modal_1" className={`modal ${modalOpen ? 'modal-open' : ""}`}>
             {loginverification ?
-                <div className="modal-box w-11/12 max-w-xl">
+                <div className="modal-box w-10/12 max-w-xl">
                     <div className='flex flex-col p-5 rounded mt-5 '>
                         <h1 className='font-bold text-center'>Please login add new Project</h1>
                         <div className="flex flex-row">
@@ -42,7 +43,7 @@ const AddProjectModal: React.FC<ModalProps> = ({ modalOpen, setModalOpen, loginv
                         </div>
                     </div>
                 </div> :
-                <div className="modal-box w-11/12 max-w-5xl">
+                <div className="modal-box w-10/12 max-w-5xl">
                     <div className='flex flex-row'>
                         <button className="btn btn-outline btn-success text-white font-bold no-animation">
                             Add New Project
@@ -69,7 +70,7 @@ const AddProjectModal: React.FC<ModalProps> = ({ modalOpen, setModalOpen, loginv
                             value={projectCode}
                             onChange={(e) => setProjectCode(e.target.value)}
                             className="grow border border-gray-600 rounded py-2 px-3 w-full mb-3"
-                            placeholder="Add some unique Project code which should not match any project codes"
+                            placeholder="Add unique project code"
                             required
                         />
                         <label htmlFor="deadline" className="block text-black mb-2 my-5">Deadline</label>
@@ -77,7 +78,7 @@ const AddProjectModal: React.FC<ModalProps> = ({ modalOpen, setModalOpen, loginv
                             <input type="date" className="grow" placeholder="Deadline" name="deadline" id="deadline" value={deadline} onChange={(e) => setDeadline(e.target.value)} />
                         </label>
                     </div>
-                    <button className="btn btn-accent mt-5" onClick={handleAddProject}>Add Project<AiOutlinePlus />{loading && <span className="loading loading-dots loading-md"></span>}</button>
+                    <button className="btn btn-accent mt-5 text-white font-bold" onClick={handleAddProject}>Add Project<AiOutlinePlus />{loading && <span className="loading loading-dots loading-md"></span>}</button>
                 </div>
             }
         </dialog>

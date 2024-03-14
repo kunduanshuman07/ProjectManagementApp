@@ -84,9 +84,9 @@ const Dashboard: React.FC<DashboardProps> = ({ loginverification }) => {
                             </div>
                         </div>
                     </div>
-                    <div className='flex flex-row mt-5'>
-                        <button className='btn mt-5 ml-10' onClick={() => setModalOpen(true)}>Add New Project <AiOutlinePlus /></button>
-                        <button className='btn mt-5 ml-10 btn-neutral' onClick={handleViewTasks}>View All Tasks <FaEye /></button>
+                    <div className={`flex mt-5 ${screenWidth<1000?'flex-col ml-5 mr-5': 'flex-row'}`}>
+                        <button className={`btn mt-5 ${screenWidth<1000?'': 'ml-10'}`} onClick={() => setModalOpen(true)}>Add New Project <AiOutlinePlus /></button>
+                        <button className={`btn mt-5 btn-neutral ${screenWidth<1000?'': 'ml-10'}`} onClick={handleViewTasks}>View All Tasks <FaEye /></button>
                     </div>
                     <ProjectTable />
                     {modalOpen && <AddProjectModal modalOpen={modalOpen} setModalOpen={setModalOpen} loginverification={loginverification} />}

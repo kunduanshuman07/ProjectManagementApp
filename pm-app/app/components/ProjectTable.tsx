@@ -6,7 +6,9 @@ import { MdDelete } from "react-icons/md";
 import EditProjectModal from "./EditProjectModal";
 import { fetchProjectData } from "../server-actions/fetchProjectData";
 import DeleteProject from "./DeleteProject";
+import { FaAngleDoubleDown } from "react-icons/fa";
 const ProjectTable = () => {
+    const screenWidth = typeof window !== 'undefined' ? window.screen.availWidth : 1001;
     const [projects, setProjects] = useState<any>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [modalOpen, setModalOpen] = useState<boolean>(false);
@@ -43,7 +45,7 @@ const ProjectTable = () => {
                 projects.length === 0 ?
                     <div className="flex flex-row"><h1 className="text-xl text-error mt-2 text-center mx-auto font-bold mb-2">No projects found!</h1></div>
                     :
-                    <table className="table border rounded">
+                    screenWidth >= 1000 ? <table className="table border rounded">
                         <thead>
                             <tr>
                                 <th className="font-bold">#</th>
@@ -74,7 +76,21 @@ const ProjectTable = () => {
                                 </tr>
                             ))}
                         </tbody>
-                    </table>
+                    </table> :
+                        <div className="flex flex-col">
+                            <button className="btn btn-accent text-white font-bold btn-sm">All Projects <FaAngleDoubleDown/></button>
+                            {projects?.map((project: any, index: number) => (
+                                <div className="p-5 shadow-md rounded mt-2" key={index}>
+                                    <h1 className="font-bold">Task #{index + 1} <span className="text-primary font-bold ml-2">{project?.project_code}</span></h1>
+                                    <h1 className="mt-3 font-bold text-neutral text-xl">{project?.project_title}</h1>
+                                    <h1 className="mt-3 font-bold text-neutral">Deadline: {project?.deadline}</h1>
+                                    <div className="flex flex-row mt-3">
+                                        <button className="btn btn-xs" onClick={() => handleEdit(project?.id)}>Edit</button>
+                                        <button className="btn btn-xs btn-error text-white ml-5" onClick={() => handleDelete(project?.id)}>Delete</button>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
             }
             {modalOpen && <EditProjectModal modalOpen={modalOpen} setModalOpen={setModalOpen} projectData={actionData} projectId={actionId} />}
             {deleteModal && <DeleteProject modalOpen={deleteModal} setModalOpen={setdeleteModal} projectId={actionId} />}
