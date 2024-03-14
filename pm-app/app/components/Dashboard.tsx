@@ -11,7 +11,7 @@ interface DashboardProps {
 }
 
 const Dashboard: React.FC<DashboardProps> = ({ loginverification }) => {
-    const screenWidth = window.screen.availWidth;
+    const screenWidth = typeof window !== 'undefined' ? window.screen.availWidth : 1001;
     const [loading, setLoading] = useState<boolean>(true);
     const [dashboardData, setDashboardData] = useState<any>();
     useEffect(() => {
