@@ -3,21 +3,20 @@ import { useState } from "react";
 import { FaProjectDiagram } from "react-icons/fa";
 import { loginUser } from "../server-actions/loginUser";
 import { useRouter } from "next/navigation";
-import { useUser } from "../UserContext";
+import { signIn } from "next-auth/react";
 const AuthCompLogin = () => {
-    const {user, setUser} = useUser();
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
     const router=useRouter()
     const handleLogin = async() => {
         setLoading(true);
-        const {message, data} = await loginUser({email, password});
-        if(message==='Login Succesfull'&&data&&data.length>0){
-            setUser(data[0]);
-            setLoading(false);
-            router.push('/');
-        }
+        const res = await signIn("credentials", {
+            email: email, 
+            password: password,
+            redirect: false,
+        })
+        router.push('/')
     }
     return (
         <div className='flex justify-center items-center h-screen bg-base-200'>
@@ -50,7 +49,7 @@ const AuthCompLogin = () => {
                             onChange={(e)=>setPassword(e.target.value)}
                         />
                     </div>
-                    <button className='btn btn-accent mt-5' onClick={handleLogin}>Login {loading&&<span className="loading loading-dots loading-md"></span>}</button>
+                    <button className='btn btn-accent mt-5 text-white font-bold' onClick={handleLogin}>Login {loading&&<span className="loading loading-dots loading-md"></span>}</button>
                     <a href='/register' className='text-center underline text-xs font-bold mt-4'>New user? Register</a>
                 </div>
             </div>

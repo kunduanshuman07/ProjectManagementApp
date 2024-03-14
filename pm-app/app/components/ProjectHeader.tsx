@@ -28,9 +28,9 @@ const ProjectHeader:React.FC<ProjectHeaderProps> = ({filterValues, setFilterValu
     }
     return (
         <div>
-            <div className="flex flex-row">
-                <button className="btn btn-neutral ml-12 mt-10 btn-sm" onClick={()=>setFilterDialogOpen(true)}>Filters <FaFilter/></button>
-                <button className="btn btn-neutral ml-12 mt-10 ml-auto mr-10" onClick={handleModalClick}>Add new task <AiOutlinePlus /></button>
+            <div className="flex flex-row bg-neutral">
+                <button className="btn btn-neutral my-5 mr-auto ml-10 btn-info text-white font-bold" onClick={()=>setFilterDialogOpen(true)}>Filters <FaFilter/></button>
+                <button className="btn my-5 mr-10 ml-auto" onClick={handleModalClick}>Add new task <AiOutlinePlus /></button>
             </div>
             <AddTaskDialog modalOpen={modalOpen} setModalOpen={setModalOpen} callType="Add" taskId={""} users={users} taskDetails={''} />
             <FilterDialog modalOpen={filterDialogOpen} setModalOpen={setFilterDialogOpen} setFilterValues={setFilterValues} users={users}/>

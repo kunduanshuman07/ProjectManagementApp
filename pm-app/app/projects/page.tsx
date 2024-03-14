@@ -5,8 +5,11 @@ import GridTable from "../components/GridTable";
 import ProjectHeader from "../components/ProjectHeader";
 import { fetchTasks } from "../server-actions/fetchTasks";
 import { fetchUsers } from "../server-actions/fetchUsers";
-
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 const Page = () => {
+    const { data } = useSession();
+    const router = useRouter();
     const [filterValues, setFilterValues] = useState<any>(null);
     const [users, setUsers] = useState<any>([]);
     const [tasks, setTasks] = useState<any>([]);
@@ -46,11 +49,20 @@ const Page = () => {
         }
         fetchTasksandUsers();
     }, [filterValues]);
+    const handleLogin = () => {
+        router.push('/login');
+    }
     return (
         <div>
             <Drawer />
-            <ProjectHeader filterValues={filterValues} setFilterValues={setFilterValues} />
-            <GridTable tasks={tasks} users={users} loading={loading} />
+            {data != null ?
+                <>
+                    <ProjectHeader filterValues={filterValues} setFilterValues={setFilterValues} />
+                    <GridTable tasks={tasks} users={users} loading={loading} />
+                </> : <div className='flex flex-col p-10 rounded mt-20 '>
+                    <h1 className='font-bold text-center'>Please login to view Tasks</h1>
+                    <button className='btn btn-accent text-white w-20 mx-auto mt-10 font-bold' onClick={handleLogin}>Login</button>
+                </div>}
         </div>
     )
 }

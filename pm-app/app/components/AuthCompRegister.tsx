@@ -3,9 +3,7 @@ import React, { useState } from 'react'
 import { FaProjectDiagram } from "react-icons/fa";
 import { registerUser } from '../server-actions/registerUser';
 import { useRouter } from 'next/navigation'
-import { useUser } from '../UserContext';
 const AuthCompRegister = () => {
-    const {user, setUser} = useUser();
     const [loading, setLoading] = useState<boolean>(false);
     const [name, setName] = useState<string>('');
     const [email, setEmail] = useState<string>('');
@@ -15,7 +13,6 @@ const AuthCompRegister = () => {
         setLoading(true);
         const { message, data } = await registerUser({ name, email, password });
         if (message === 'Success' && data && data.length > 0) {
-            setUser(data[0]);
             setLoading(false);
             router.push('/');
             
@@ -65,7 +62,7 @@ const AuthCompRegister = () => {
                             />
 
                         </div>
-                        <button className='btn btn-accent mt-5' onClick={handleRegister}>Register {loading&&<span className="loading loading-dots loading-md"></span>}</button>
+                        <button className='btn btn-accent mt-5 font-bold text-white' onClick={handleRegister}>Register {loading&&<span className="loading loading-dots loading-md"></span>}</button>
                         <a href='/login' className='text-center underline text-xs font-bold mt-4'>Existing user? Login</a>
                     </div>
                 </div>

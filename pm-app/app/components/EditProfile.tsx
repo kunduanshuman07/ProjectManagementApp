@@ -3,9 +3,10 @@ import EditProfileModal from "./EditProfileModal";
 interface ModalProps {
     modalOpen: boolean;
     setModalOpen: (modalOpen: boolean) => void;
+    user: any;
 }
 
-const EditProfile: React.FC<ModalProps> = ({ modalOpen, setModalOpen }) => {
+const EditProfile: React.FC<ModalProps> = ({ modalOpen, setModalOpen, user }) => {
     const handleModalClose = () => {
         setModalOpen(false);
     }
@@ -18,7 +19,7 @@ const EditProfile: React.FC<ModalProps> = ({ modalOpen, setModalOpen }) => {
                     </button>
                     <button className="btn ml-auto" onClick={handleModalClose}>Close</button>
                 </div>
-                <EditProfileModal setModalOpen={setModalOpen}/>
+                <EditProfileModal setModalOpen={setModalOpen} user={user}/>
             </div>
         </dialog>
     )

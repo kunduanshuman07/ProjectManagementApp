@@ -1,12 +1,11 @@
 import { AiOutlineEdit } from "react-icons/ai";
 import { useState } from "react";
 import { editUserProfile } from "../server-actions/editUserProfile";
-import { useUser } from "../UserContext";
 interface EditProfileProps {
     setModalOpen: (modalOpen: boolean) => void;
+    user: any;
 }
-const EditProfileModal: React.FC<EditProfileProps> = ({ setModalOpen }) => {
-    const {user, setUser} = useUser();
+const EditProfileModal: React.FC<EditProfileProps> = ({ setModalOpen, user }) => {
     const [name, setName] = useState<string>(user?.name);
     const [dob, setDob] = useState<any>(user?.dob);
     const [gender, setGender] = useState<string>(user?.gender);
@@ -22,9 +21,9 @@ const EditProfileModal: React.FC<EditProfileProps> = ({ setModalOpen }) => {
         setLoading(true);
         const { message , userData } = await editUserProfile({ name, dob, phone, gender, city, state, nation, tenth, twelth, graduation, userId: user?.id });
         if (message === 'Success'&&userData&&userData.length>0) {
-            setUser(userData[0]);
             setLoading(false);
         }
+        window.location.reload();
         setModalOpen(false);
     }
     return (

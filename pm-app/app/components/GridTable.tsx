@@ -7,13 +7,13 @@ import AddTaskDialog from "./AddTaskDialog";
 import DeleteTaskDialog from "./DeleteTaskDialog";
 import DetailsModal from "./DetailsModal";
 
-interface GridTableProps{
+interface GridTableProps {
     tasks: any;
     users: any;
     loading: boolean;
 }
 
-const GridTable: React.FC<GridTableProps> = ({tasks, users, loading}) => {
+const GridTable: React.FC<GridTableProps> = ({ tasks, users, loading }) => {
     const [editModalOpen, setEditModalOpen] = useState<any>(false)
     const [deleteModalOpen, setDeleteModalOpen] = useState<any>(false)
     const [detailsModal, setDetailsModal] = useState<any>(false);
@@ -35,13 +35,11 @@ const GridTable: React.FC<GridTableProps> = ({tasks, users, loading}) => {
     return (
         <div className="overflow-x-auto p-4">
             {loading ?
-                <>
-                    <div className="flex flex-row">
-                        <span className="loading loading-bars loading-lg ml-auto mr-5 text-neutral"></span>
-                        <h2 className="font-bold text-xl mt-1">Loading Tasks</h2>
-                        <span className="loading loading-bars loading-lg text-center ml-5 mr-auto text-neutral"></span>
-                    </div>
-                </> :
+                <div className='flex flex-row rounded mt-20'>
+                    <h1 className='font-bold ml-auto mr-5 text-accent'>Loading Tasks...</h1>
+                    <span className='loading text-accent font-bold loading-bars text-center mr-auto'></span>
+                </div>
+                :
                 <table className="table border rounded">
                     <thead>
                         <tr>

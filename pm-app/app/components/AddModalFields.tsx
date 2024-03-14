@@ -24,7 +24,7 @@ const AddModalFields: React.FC<AddModalProps> = ({ setModalOpen, users }) => {
     }
     return (
         <>
-            <div className="p-2">
+            <div className="p-1">
                 <label htmlFor="task" className="block text-black mb-2 my-5">Task Name</label>
                 <input
                     type="text"

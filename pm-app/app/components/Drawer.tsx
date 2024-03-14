@@ -1,15 +1,16 @@
 'use client'
 import { useRouter } from 'next/navigation'
 import { FaProjectDiagram } from "react-icons/fa";
-import { useUser } from '../UserContext';
+import { signOut } from 'next-auth/react';
 const Drawer = () => {
     const router = useRouter();
-    const { user, setUser } = useUser();
     const handleProfile = () => {
         router.push('/profile');
     }
-    const handleLogout = () => {
-        setUser(null);
+    const handleLogout = async() => {
+        await signOut({
+            redirect: false
+        });
         router.push('/login');
     }
     const handleDashboard = () => {
