@@ -10,9 +10,10 @@ import FilterDialog from "./FilterDialog";
 interface ProjectHeaderProps{
     filterValues: any;
     setFilterValues: (filterValues: any) => void;
+    loginVerification: boolean;
 }
 
-const ProjectHeader:React.FC<ProjectHeaderProps> = ({filterValues, setFilterValues}) => {
+const ProjectHeader:React.FC<ProjectHeaderProps> = ({filterValues, setFilterValues, loginVerification}) => {
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [users, setUsers] = useState<any>([]);
     const [filterDialogOpen, setFilterDialogOpen] = useState<boolean>(false);
@@ -32,7 +33,8 @@ const ProjectHeader:React.FC<ProjectHeaderProps> = ({filterValues, setFilterValu
                 <button className="btn btn-neutral my-5 mr-auto ml-10 btn-info text-white font-bold" onClick={()=>setFilterDialogOpen(true)}>Filters <FaFilter/></button>
                 <button className="btn my-5 mr-10 ml-auto" onClick={handleModalClick}>Add new task <AiOutlinePlus /></button>
             </div>
-            <AddTaskDialog modalOpen={modalOpen} setModalOpen={setModalOpen} callType="Add" taskId={""} users={users} taskDetails={''} />
+            <AddTaskDialog modalOpen={modalOpen} setModalOpen={setModalOpen} callType="Add" taskId={""} users={users} taskDetails={''} 
+            loginVerification={loginVerification}/>
             <FilterDialog modalOpen={filterDialogOpen} setModalOpen={setFilterDialogOpen} setFilterValues={setFilterValues} users={users}/>
         </div>
     )

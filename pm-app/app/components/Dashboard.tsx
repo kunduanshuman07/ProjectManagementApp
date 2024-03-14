@@ -5,7 +5,12 @@ import AddProjectModal from './AddProjectModal';
 import { FaEye } from 'react-icons/fa';
 import { useRouter } from "next/navigation";
 import { fetchDashboardData } from '../server-actions/fetchDashboardData';
-const Dashboard = () => {
+
+interface DashboardProps{
+    loginverification: boolean;
+}
+
+const Dashboard:React.FC<DashboardProps> = ({loginverification}) => {
     const [loading, setLoading] = useState<boolean>(true);
     const [dashboardData, setDashboardData] = useState<any>();
     useEffect(() => {
@@ -83,7 +88,7 @@ const Dashboard = () => {
                         <button className='btn mt-5 ml-10 btn-neutral' onClick={handleViewTasks}>View All Tasks <FaEye /></button>
                     </div>
                     <ProjectTable />
-                    {modalOpen && <AddProjectModal modalOpen={modalOpen} setModalOpen={setModalOpen} />}
+                    {modalOpen && <AddProjectModal modalOpen={modalOpen} setModalOpen={setModalOpen} loginverification={loginverification}/>}
                 </>}
         </div>
     )

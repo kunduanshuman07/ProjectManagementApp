@@ -9,12 +9,15 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 const Page = () => {
     const { data } = useSession();
-    const router = useRouter();
     const [filterValues, setFilterValues] = useState<any>(null);
     const [users, setUsers] = useState<any>([]);
     const [tasks, setTasks] = useState<any>([]);
     const [loading, setLoading] = useState<boolean>(true);
+    const [loginVerification, setLoginVerification] = useState<boolean>(true);
     useEffect(() => {
+        if(data!=null){
+            setLoginVerification(false);
+        }
         const handleFilters = (allTasks: any) => {
             let filteredTasks: any[] = [];
             allTasks.map((task: any) => {
@@ -49,20 +52,12 @@ const Page = () => {
         }
         fetchTasksandUsers();
     }, [filterValues]);
-    const handleLogin = () => {
-        router.push('/login');
-    }
+    
     return (
         <div>
             <Drawer />
-            {data != null ?
-                <>
-                    <ProjectHeader filterValues={filterValues} setFilterValues={setFilterValues} />
-                    <GridTable tasks={tasks} users={users} loading={loading} />
-                </> : <div className='flex flex-col p-10 rounded mt-20 '>
-                    <h1 className='font-bold text-center'>Please login to view Tasks</h1>
-                    <button className='btn btn-accent text-white w-20 mx-auto mt-10 font-bold' onClick={handleLogin}>Login</button>
-                </div>}
+            <ProjectHeader filterValues={filterValues} setFilterValues={setFilterValues} loginVerification={loginVerification}/>
+            <GridTable tasks={tasks} users={users} loading={loading} loginVerification={loginVerification}/>
         </div>
     )
 }

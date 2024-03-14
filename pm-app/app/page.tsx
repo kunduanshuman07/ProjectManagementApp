@@ -21,14 +21,7 @@ export default function Home() {
   return (
     <main>
       <Drawer />
-      {loading ?
-        <div className='flex flex-col p-10 rounded mt-20 '>
-          <h1 className='font-bold text-center'>Please login to view Dashboard</h1>
-          <button className='btn btn-accent text-white w-20 mx-auto mt-10 font-bold' onClick={handleLogin}>Login</button>
-        </div>
-        :
-        <Dashboard />
-      }
+      <Dashboard loginverification={loading}/>
     </main>
   );
 }

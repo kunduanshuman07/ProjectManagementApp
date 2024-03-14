@@ -11,10 +11,11 @@ interface GridTableProps {
     tasks: any;
     users: any;
     loading: boolean;
+    loginVerification: boolean;
 }
 
-const GridTable: React.FC<GridTableProps> = ({ tasks, users, loading }) => {
-    const [editModalOpen, setEditModalOpen] = useState<any>(false)
+const GridTable: React.FC<GridTableProps> = ({ tasks, users, loading, loginVerification }) => {
+    const [editModalOpen, setEditModalOpen] = useState<any>(false);
     const [deleteModalOpen, setDeleteModalOpen] = useState<any>(false)
     const [detailsModal, setDetailsModal] = useState<any>(false);
     const [detailsTask, setDetailsTask] = useState<any>();
@@ -78,7 +79,7 @@ const GridTable: React.FC<GridTableProps> = ({ tasks, users, loading }) => {
                         ))}
                     </tbody>
                 </table>}
-            {editModalOpen && <AddTaskDialog setModalOpen={setEditModalOpen} modalOpen={editModalOpen} callType="Edit" taskId={taskId} users={users} taskDetails={detailsTask} />}
+            {editModalOpen && <AddTaskDialog setModalOpen={setEditModalOpen} modalOpen={editModalOpen} callType="Edit" taskId={taskId} users={users} taskDetails={detailsTask} loginVerification={loginVerification}/>}
             {deleteModalOpen && <DeleteTaskDialog setModalOpen={setDeleteModalOpen} modalOpen={deleteModalOpen} taskId={taskId} />}
             {detailsModal && <DetailsModal setModalOpen={setDetailsModal} modalOpen={detailsModal} task={detailsTask} />}
         </div>
