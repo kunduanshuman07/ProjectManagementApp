@@ -4,7 +4,7 @@ import { FaProjectDiagram } from "react-icons/fa";
 import { useUser } from '../UserContext';
 const Drawer = () => {
     const router = useRouter();
-    const {user, setUser} = useUser();
+    const { user, setUser } = useUser();
     const handleProfile = () => {
         router.push('/profile');
     }
@@ -28,23 +28,13 @@ const Drawer = () => {
                     <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52 text-neutral">
                         <li onClick={handleDashboard}><a>Dashboard</a></li>
                         <li onClick={handleTasks}><a>Tasks</a></li>
-                    </ul>
-                </details>
-            </div>
-            <div className="navbar-center">
-                <a className="btn btn-ghost text-xl"><FaProjectDiagram />Project Management App</a>
-            </div>
-            <div className="navbar-end avatar placeholder">
-                <details className="dropdown dropdown-bottom dropdown-end">
-                    <summary className="btn btn-circle">
-                       {user?.name[0]}
-                    </summary>
-                    <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52 text-neutral">
                         <li onClick={handleProfile}><a>Profile</a></li>
                         <li onClick={handleLogout}><a>Logout</a></li>
                     </ul>
                 </details>
-
+            </div>
+            <div className="navbar-end">
+                <a className="btn btn-ghost text-xl ml-0"><FaProjectDiagram />Project Management App</a>
             </div>
         </div>
     )

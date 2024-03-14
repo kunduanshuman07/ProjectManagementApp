@@ -22,9 +22,9 @@ const ProjectTable = () => {
         }
         fetchTasksandUsers();
     }, [])
-    const handleEdit = async(projectId: any) => {
+    const handleEdit = async (projectId: any) => {
         setActionId(projectId);
-        const {message, data} = await fetchProjectData({projectId});
+        const { message, data } = await fetchProjectData({ projectId });
         setActionData(data);
         setModalOpen(true);
     }
@@ -33,7 +33,7 @@ const ProjectTable = () => {
         setdeleteModal(true);
     }
     return (
-        <div className="overflow-x-auto p-10">
+        <div className="overflow-x-auto p-4">
             {loading ?
                 <>
                     <div className="flex flex-row">
@@ -57,25 +57,26 @@ const ProjectTable = () => {
                         {projects?.map((project: any, index: number) => (
                             <tr key={project.id}>
                                 <td >
-                                    {index+1}
+                                    {index + 1}
                                 </td>
                                 <td className="font-bold">{project.project_title}</td>
                                 <td>
-                                   <button className="btn btn-xs btn-primary">{project.project_code}</button>
+                                    <button className="btn btn-xs btn-primary">{project.project_code}</button>
                                 </td>
                                 <td>{project.deadline}</td>
                                 <td>
-                                    <button className="btn btn-xs" onClick={()=>handleEdit(project.id)}><FaEdit /></button>
+                                    <button className="btn btn-xs" onClick={() => handleEdit(project.id)}><FaEdit /></button>
                                 </td>
                                 <td>
-                                    <button className="btn btn-xs" onClick={()=>handleDelete(project.id)}><MdDelete /></button>
+                                    <button className="btn btn-xs" onClick={() => handleDelete(project.id)}><MdDelete /></button>
                                 </td>
                             </tr>
                         ))}
                     </tbody>
-                </table>}
-                {modalOpen && <EditProjectModal modalOpen={modalOpen} setModalOpen={setModalOpen} projectData={actionData} projectId={actionId}/>}
-                {deleteModal && <DeleteProject modalOpen={deleteModal} setModalOpen={setdeleteModal} projectId={actionId}/>}
+                </table>
+            }
+            {modalOpen && <EditProjectModal modalOpen={modalOpen} setModalOpen={setModalOpen} projectData={actionData} projectId={actionId} />}
+            {deleteModal && <DeleteProject modalOpen={deleteModal} setModalOpen={setdeleteModal} projectId={actionId} />}
         </div>
     )
 }
