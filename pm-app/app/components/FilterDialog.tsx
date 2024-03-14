@@ -34,7 +34,7 @@ const FilterDialog: React.FC<FilterDialogProps> = ({ modalOpen, setModalOpen, se
                     <h1 className="font-bold mt-1">Add Task Filters</h1>
                     <button className="btn ml-auto btn-sm" onClick={handleModalClose}>Close</button>
                 </div>
-                <div className="flex flex-row">
+                <div className={`flex ${screenWidth<1000?"flex-col": "flex-row"}`}>
                     <div className="flex flex-col">
                         <h3 className="font-bold mt-3 text-secondary">Status</h3>
                         <div className="mt-3 flex flex-row">
@@ -71,7 +71,7 @@ const FilterDialog: React.FC<FilterDialogProps> = ({ modalOpen, setModalOpen, se
                             <h2 className="ml-3">Completed</h2>
                         </div>
                     </div>
-                    <div className={`flex flex-col ${screenWidth<1000?"ml-20": "ml-40"}`}>
+                    <div className={`flex flex-col ${screenWidth<1000?"": "ml-40"}`}>
                         <h3 className="font-bold mt-5 text-accent">Priority</h3>
                         <div className="mt-3 flex flex-row">
                             <input

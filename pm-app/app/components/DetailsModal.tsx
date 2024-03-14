@@ -12,9 +12,9 @@ const DetailsModal: React.FC<DetailsModalProps> = ({ modalOpen, setModalOpen, ta
     }
     return (
         <dialog id="my_modal_1" className={`modal ${modalOpen ? 'modal-open' : ""}`}>
-            <div className="modal-box w-11/12 max-w-2xl p-8">
+            <div className="modal-box w-11/12 max-w-2xl p-4">
                 <h1 className="font-bold text-center underline mt-2 mb-2">Task Details</h1>
-                <button className="btn text-left font-bold mt-5 flex flex-row"><MdOutlineDescription />{task.task}</button>
+                <button className="btn text-left font-bold mt-5 flex flex-row p-2"><MdOutlineDescription />{task.task}</button>
                 <div className="flex flex-row">
                     <h1 className="mt-5 font-bold text-10">Priority: </h1>
                     <button className={`btn btn-xs mt-5 ml-2 text-white ${task.priority === 'High' ? 'btn-error' : task.priority === 'Low' ? 'btn-accent' : 'btn-warning'}`}>{task.priority}</button>
