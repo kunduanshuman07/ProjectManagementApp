@@ -8,6 +8,7 @@ interface EditModalProps {
     taskDetails: any;
 }
 const EditModalFields: React.FC<EditModalProps> = ({ setModalOpen, users, taskId, taskDetails }) => {
+    const screenWidth = typeof window !== 'undefined' ? window.screen.availWidth : 1001;
     const [task, setTask] = useState<string>(taskDetails.task);
     const [task_description, setTask_desc] = useState<string>(taskDetails.task_description);
     const [assignee, setAssignee] = useState<string>(`${taskDetails.assignee_id}|${taskDetails.assignee}`);
@@ -49,7 +50,7 @@ const EditModalFields: React.FC<EditModalProps> = ({ setModalOpen, users, taskId
                     placeholder="Task Description"
                     required
                 />
-                <div className="flex flex-row">
+                <div className={`flex ${screenWidth<1000? "flex-col": "flex-row"}`}>
                     <label htmlFor="assignee" className="block text-black mb-2 my-6">Assignee</label>
                     <select
                         className="select select-bordered w-full max-w-xs mr-2 ml-2 mt-3"
@@ -87,7 +88,7 @@ const EditModalFields: React.FC<EditModalProps> = ({ setModalOpen, users, taskId
                     <input type="date" className="grow" placeholder="Deadline" name="deadline" id="deadline" value={deadline} onChange={(e)=>setDeadline(e.target.value)}/>
                 </label>
             </div>
-            <button className="btn btn-accent mt-5" onClick={handleEditTask}>Update Task<AiOutlineEdit />{loading&&<span className="loading loading-dots loading-md"></span>}</button>
+            <button className="btn btn-accent mt-5 text-white font-bold" onClick={handleEditTask}>Update Task<AiOutlineEdit />{loading&&<span className="loading loading-dots loading-md"></span>}</button>
         </>
     )
 }

@@ -35,7 +35,7 @@ const AddTaskDialog: React.FC<ModalProps> = ({ modalOpen, setModalOpen, callType
                 <div className="modal-box w-11/12 max-w-5xl">
                     <div className='flex flex-row'>
                         <button className="btn btn-outline btn-success text-white font-bold no-animation">
-                            {callType === "Edit" ? "Edit Task" : "Add New Task to the Project"}
+                            {callType === "Edit" ? "Edit Task" : "Add New Task"}
                         </button>
                         <button className="btn ml-auto" onClick={handleModalClose}>Close</button>
                     </div>

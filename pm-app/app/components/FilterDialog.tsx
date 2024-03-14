@@ -9,6 +9,7 @@ interface FilterDialogProps {
 }
 
 const FilterDialog: React.FC<FilterDialogProps> = ({ modalOpen, setModalOpen, setFilterValues, users }) => {
+    const screenWidth = typeof window !== 'undefined' ? window.screen.availWidth : 1001;
     const [statusFilter, setStatusFilter] = useState<string>("All");
     const [priorityFilter, setPriorityFilter] = useState<string>("All");
     const [assigneeFilter, setAssigneeFilter] = useState<string>("");
@@ -70,7 +71,7 @@ const FilterDialog: React.FC<FilterDialogProps> = ({ modalOpen, setModalOpen, se
                             <h2 className="ml-3">Completed</h2>
                         </div>
                     </div>
-                    <div className="flex flex-col ml-40">
+                    <div className={`flex flex-col ${screenWidth<1000?"ml-20": "ml-40"}`}>
                         <h3 className="font-bold mt-5 text-accent">Priority</h3>
                         <div className="mt-3 flex flex-row">
                             <input
@@ -150,7 +151,7 @@ const FilterDialog: React.FC<FilterDialogProps> = ({ modalOpen, setModalOpen, se
                         onChange={(e) => setDeadlineTo(e.target.value)}
                     />
                 </div>
-                <div className="flex flex-row">
+                <div className="flex flex-row mt-5">
                 <button className="btn btn-neutral btn-sm mt-5" onClick={handleSetFilters}>
                     Set Filters
                 </button>

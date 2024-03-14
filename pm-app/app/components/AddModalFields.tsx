@@ -6,6 +6,7 @@ interface AddModalProps {
     users: any[] | null;
 }
 const AddModalFields: React.FC<AddModalProps> = ({ setModalOpen, users }) => {
+    const screenWidth = typeof window !== 'undefined' ? window.screen.availWidth : 1001;
     const [task, setTask] = useState<string>('');
     const [task_description, setTask_desc] = useState<string>('');
     const [assignee, setAssignee] = useState<string>('');
@@ -47,7 +48,7 @@ const AddModalFields: React.FC<AddModalProps> = ({ setModalOpen, users }) => {
                     placeholder="Task Description"
                     required
                 />
-                <div className="flex flex-row">
+                <div className={`flex ${screenWidth<1000? "flex-col": "flex-row"}`}>
                     <label htmlFor="assignee" className="block text-black mb-2 my-6">Assignee</label>
                     <select
                         className="select select-bordered w-full max-w-xs mr-2 ml-2 mt-3"
@@ -90,7 +91,7 @@ const AddModalFields: React.FC<AddModalProps> = ({ setModalOpen, users }) => {
                     <input type="date" className="grow" placeholder="Deadline" name="deadline" id="deadline" value={deadline} onChange={(e)=>setDeadline(e.target.value)}/>
                 </label>
             </div>
-            <button className="btn btn-accent mt-5" onClick={handleAddTask}>Add Task<AiOutlinePlus />{loading&&<span className="loading loading-dots loading-md"></span>}</button>
+            <button className="btn btn-accent mt-5 text-white font-bold" onClick={handleAddTask}>Add Task<AiOutlinePlus />{loading&&<span className="loading loading-dots loading-md"></span>}</button>
         </>
     )
 }

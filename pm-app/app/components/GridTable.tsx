@@ -15,6 +15,7 @@ interface GridTableProps {
 }
 
 const GridTable: React.FC<GridTableProps> = ({ tasks, users, loading, loginVerification }) => {
+    const screenWidth = typeof window !== 'undefined' ? window.screen.availWidth : 1001;
     const [editModalOpen, setEditModalOpen] = useState<any>(false);
     const [deleteModalOpen, setDeleteModalOpen] = useState<any>(false)
     const [detailsModal, setDetailsModal] = useState<any>(false);
@@ -41,10 +42,10 @@ const GridTable: React.FC<GridTableProps> = ({ tasks, users, loading, loginVerif
                     <span className='loading text-accent font-bold loading-bars text-center mr-auto'></span>
                 </div>
                 :
-                <table className="table border rounded">
+                screenWidth >= 1000 ? <table className="table border rounded">
                     <thead>
                         <tr>
-                            <th className="font-bold">Tasks</th>
+                            <th className="font-bold">Task</th>
                             <th className="font-bold">Assigned To</th>
                             <th className="font-bold">Priority</th>
                             <th className="font-bold">Deadline</th>
@@ -78,8 +79,25 @@ const GridTable: React.FC<GridTableProps> = ({ tasks, users, loading, loginVerif
                             </tr>
                         ))}
                     </tbody>
-                </table>}
-            {editModalOpen && <AddTaskDialog setModalOpen={setEditModalOpen} modalOpen={editModalOpen} callType="Edit" taskId={taskId} users={users} taskDetails={detailsTask} loginVerification={loginVerification}/>}
+                </table> :
+                    <div className="flex flex-col">
+                        {tasks?.map((task: any) => (
+                            <div className="p-5 shadow-md rounded mt-2" key={task.id}>
+                                <h1 className="mt-3 font-bold text-primary text-xl">{task.task}</h1>
+                                <h1 className="mt-3 text-neutral">Assigned To: {task.assignee}</h1>
+                                <button className={`btn btn-xs text-white mt-3 ${task.priority === 'High' ? 'btn-error' : task.priority === 'Low' ? 'btn-accent' : 'btn-warning'}`}>Priority: {task.priority}</button>
+                                <h1 className="mt-3 font-bold text-neutral">Deadline: {task.deadline}</h1>
+                                <button className={`btn btn-xs mt-3 ${task.status === 'In Progress' ? 'btn-info text-white' : 'btn-success text-white'}`}>{task.status}</button>
+                                <div className="flex flex-row mt-5">
+                                    <button className="btn btn-xs btn-neutral" onClick={() => handleDetails(task)}>Details</button>
+                                    <button className="btn btn-xs ml-5" onClick={() => handleEdit(task.id, task)}>Edit</button>
+                                    <button className="btn btn-xs btn-error text-white ml-5" onClick={() => handleDelete(task.id)}>Delete</button>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+            }
+            {editModalOpen && <AddTaskDialog setModalOpen={setEditModalOpen} modalOpen={editModalOpen} callType="Edit" taskId={taskId} users={users} taskDetails={detailsTask} loginVerification={loginVerification} />}
             {deleteModalOpen && <DeleteTaskDialog setModalOpen={setDeleteModalOpen} modalOpen={deleteModalOpen} taskId={taskId} />}
             {detailsModal && <DetailsModal setModalOpen={setDetailsModal} modalOpen={detailsModal} task={detailsTask} />}
         </div>
