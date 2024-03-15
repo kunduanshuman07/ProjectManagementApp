@@ -8,6 +8,7 @@ const AuthCompLogin = () => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
+    const [errorMsg, setErrorMsg] = useState<string>('');
     const router=useRouter()
     const handleLogin = async() => {
         setLoading(true);
@@ -16,7 +17,14 @@ const AuthCompLogin = () => {
             password: password,
             redirect: false,
         })
-        router.push('/')
+        console.log(res);
+        if(!res?.ok){
+            setLoading(false);
+            setErrorMsg('Invalid Credentials. Please try again!')
+        }
+        else{
+            router.push('/')
+        }
     }
     return (
         <div className='flex justify-center items-center h-screen bg-base-200'>
@@ -49,7 +57,8 @@ const AuthCompLogin = () => {
                             onChange={(e)=>setPassword(e.target.value)}
                         />
                     </div>
-                    <button className='btn btn-accent mt-5 text-white font-bold' onClick={handleLogin}>Login {loading&&<span className="loading loading-dots loading-md"></span>}</button>
+                    <h1 className="text-error font-bold text-center mt-2 text-xs">{errorMsg}</h1>
+                    <button className='btn btn-accent mt-2 text-white font-bold' onClick={handleLogin}>Login {loading&&<span className="loading loading-dots loading-md"></span>}</button>
                     <a href='/register' className='text-center underline text-xs font-bold mt-4'>New user? Register</a>
                 </div>
             </div>

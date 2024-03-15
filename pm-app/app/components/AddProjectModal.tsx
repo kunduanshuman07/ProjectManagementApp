@@ -14,18 +14,25 @@ const AddProjectModal: React.FC<ModalProps> = ({ modalOpen, setModalOpen, loginv
     const router = useRouter();
     const [projectTitle, setProjectTitle] = useState<string>('');
     const [projectCode, setProjectCode] = useState<string>('');
-    const [deadline, setDeadline] = useState<any>();
+    const [deadline, setDeadline] = useState<any>(null);
     const [loading, setLoading] = useState<boolean>(false);
+    const [errorMsg, setErrorMsg] = useState<string>('');
     const handleModalClose = () => {
         setModalOpen(false);
     }
     const handleAddProject = async () => {
         setLoading(true);
-        const { message } = await addProject({ projectTitle, projectCode, deadline });
-        if (message === 'Success') {
+        if (projectTitle === '' || projectCode === '' || deadline == null) {
+            setErrorMsg('*Some or all fields Missing*');
             setLoading(false);
-            setModalOpen(false);
-            window.location.reload();
+        }
+        else {
+            const { message } = await addProject({ projectTitle, projectCode, deadline });
+            if (message === 'Success') {
+                setLoading(false);
+                setModalOpen(false);
+                window.location.reload();
+            }
         }
     }
     const handleLogin = () => {
@@ -78,7 +85,8 @@ const AddProjectModal: React.FC<ModalProps> = ({ modalOpen, setModalOpen, loginv
                             <input type="date" className="grow" placeholder="Deadline" name="deadline" id="deadline" value={deadline} onChange={(e) => setDeadline(e.target.value)} />
                         </label>
                     </div>
-                    <button className="btn btn-accent mt-5 text-white font-bold" onClick={handleAddProject}>Add Project<AiOutlinePlus />{loading && <span className="loading loading-dots loading-md"></span>}</button>
+                    <h1 className="font-bold text-error text-xs mt-3">{errorMsg}</h1>
+                    <button className="btn btn-accent mt-2 text-white font-bold" onClick={handleAddProject}>Add Project<AiOutlinePlus />{loading && <span className="loading loading-dots loading-md"></span>}</button>
                 </div>
             }
         </dialog>

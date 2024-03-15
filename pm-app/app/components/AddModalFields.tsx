@@ -12,15 +12,22 @@ const AddModalFields: React.FC<AddModalProps> = ({ setModalOpen, users }) => {
     const [assignee, setAssignee] = useState<string>('');
     const [priority, setPriority] = useState<string>('');
     const [status, setStatus] = useState<string>('');
-    const [deadline, setDeadline] = useState<any>();
+    const [deadline, setDeadline] = useState<any>(null);
     const [loading, setLoading] = useState<boolean>(false);
+    const [errorMsg, setErrorMsg] = useState<string>('');
     const handleAddTask = async () => {
         setLoading(true);
-        const {message} = await addTask({task, task_description, assignee, priority, status, deadline})
-        if(message==='Success'){
+        if (task === '' || task_description === '' || assignee === '' || priority === '' || status === '' || deadline == null) {
+            setErrorMsg('*Some or all fields Missing*');
             setLoading(false);
-            setModalOpen(false);
-            window.location.reload();
+        }
+        else {
+            const { message } = await addTask({ task, task_description, assignee, priority, status, deadline })
+            if (message === 'Success') {
+                setLoading(false);
+                setModalOpen(false);
+                window.location.reload();
+            }
         }
     }
     return (
@@ -48,10 +55,10 @@ const AddModalFields: React.FC<AddModalProps> = ({ setModalOpen, users }) => {
                     placeholder="Task Description"
                     required
                 />
-                <div className={`flex ${screenWidth<1000? "flex-col": "flex-row"}`}>
+                <div className={`flex ${screenWidth < 1000 ? "flex-col" : "flex-row"}`}>
                     <label htmlFor="assignee" className="block text-black mb-2 my-6">Assignee</label>
                     <select
-                        className={`select select-bordered w-full max-w-xs mt-3 ${screenWidth<1000?'':'mr-2 ml-2'}`}
+                        className={`select select-bordered w-full max-w-xs mt-3 ${screenWidth < 1000 ? '' : 'mr-2 ml-2'}`}
                         id="assignee"
                         name="assignee"
                         value={assignee}
@@ -66,9 +73,9 @@ const AddModalFields: React.FC<AddModalProps> = ({ setModalOpen, users }) => {
                     </select>
 
                     <label htmlFor="priority" className="block text-black mb-2 my-6 ml-2">Priority</label>
-                    <select className={`select select-bordered w-full max-w-xs mt-3 ${screenWidth<1000?'':'mr-2 ml-2'}`} id="priority" name="priority"
-                         value={priority}
-                         onChange={(e) => setPriority(e.target.value)}
+                    <select className={`select select-bordered w-full max-w-xs mt-3 ${screenWidth < 1000 ? '' : 'mr-2 ml-2'}`} id="priority" name="priority"
+                        value={priority}
+                        onChange={(e) => setPriority(e.target.value)}
                     >
                         <option value="">Select Priority</option>
                         <option>High</option>
@@ -77,9 +84,9 @@ const AddModalFields: React.FC<AddModalProps> = ({ setModalOpen, users }) => {
                     </select>
 
                     <label htmlFor="status" className="block text-black mb-2 my-6 ml-2">Status</label>
-                    <select className={`select select-bordered w-full max-w-xs mt-3 ${screenWidth<1000?'':'mr-2 ml-2'}`} id="status" name="status"
-                         value={status}
-                         onChange={(e) => setStatus(e.target.value)}
+                    <select className={`select select-bordered w-full max-w-xs mt-3 ${screenWidth < 1000 ? '' : 'mr-2 ml-2'}`} id="status" name="status"
+                        value={status}
+                        onChange={(e) => setStatus(e.target.value)}
                     >
                         <option value="">Select Status</option>
                         <option>In Progress</option>
@@ -88,10 +95,11 @@ const AddModalFields: React.FC<AddModalProps> = ({ setModalOpen, users }) => {
                 </div>
                 <label htmlFor="deadline" className="block text-black mb-2 my-5">Deadline</label>
                 <label className="input input-bordered flex items-center gap-2 my-1">
-                    <input type="date" className="grow" placeholder="Deadline" name="deadline" id="deadline" value={deadline} onChange={(e)=>setDeadline(e.target.value)}/>
+                    <input type="date" className="grow" placeholder="Deadline" name="deadline" id="deadline" value={deadline} onChange={(e) => setDeadline(e.target.value)} />
                 </label>
             </div>
-            <button className="btn btn-accent mt-5 text-white font-bold" onClick={handleAddTask}>Add Task<AiOutlinePlus />{loading&&<span className="loading loading-dots loading-md"></span>}</button>
+            <h1 className="font-bold text-error text-xs mt-3">{errorMsg}</h1>
+            <button className="btn btn-accent mt-2 text-white font-bold" onClick={handleAddTask}>Add Task<AiOutlinePlus />{loading && <span className="loading loading-dots loading-md"></span>}</button>
         </>
     )
 }
