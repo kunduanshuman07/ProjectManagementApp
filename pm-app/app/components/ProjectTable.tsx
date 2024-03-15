@@ -43,7 +43,7 @@ const ProjectTable = () => {
                 </div>
                 :
                 projects.length === 0 ?
-                    <div className="flex flex-row"><h1 className="text-xl text-error mt-2 text-center mx-auto font-bold mb-2">No projects found!</h1></div>
+                    <div className="flex flex-row"><h1 className={`text-error mt-2 text-center font-bold mb-2 ${screenWidth<1000?'mx-auto':'mx-auto'}`}>No projects found!</h1></div>
                     :
                     screenWidth >= 1000 ? <table className="table border rounded">
                         <thead>

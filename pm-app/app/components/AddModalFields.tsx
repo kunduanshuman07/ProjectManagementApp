@@ -22,6 +22,7 @@ const AddModalFields: React.FC<AddModalProps> = ({ setModalOpen, users }) => {
             setLoading(false);
         }
         else {
+            setErrorMsg('');
             const { message } = await addTask({ task, task_description, assignee, priority, status, deadline })
             if (message === 'Success') {
                 setLoading(false);

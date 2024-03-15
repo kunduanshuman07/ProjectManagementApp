@@ -27,6 +27,7 @@ const AddProjectModal: React.FC<ModalProps> = ({ modalOpen, setModalOpen, loginv
             setLoading(false);
         }
         else {
+            setErrorMsg('');
             const { message } = await addProject({ projectTitle, projectCode, deadline });
             if (message === 'Success') {
                 setLoading(false);

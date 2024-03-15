@@ -12,9 +12,12 @@ interface GridTableProps {
     users: any;
     loading: boolean;
     loginVerification: boolean;
+    selectedTasks: any;
+    handleSelectAll: () => void;
+    handleCheckboxChange: (taskId: any) => void;
 }
 
-const GridTable: React.FC<GridTableProps> = ({ tasks, users, loading, loginVerification }) => {
+const GridTable: React.FC<GridTableProps> = ({ tasks, users, loading, loginVerification, selectedTasks, handleSelectAll, handleCheckboxChange }) => {
     const screenWidth = typeof window !== 'undefined' ? window.screen.availWidth : 1001;
     const [editModalOpen, setEditModalOpen] = useState<any>(false);
     const [deleteModalOpen, setDeleteModalOpen] = useState<any>(false)
@@ -41,10 +44,19 @@ const GridTable: React.FC<GridTableProps> = ({ tasks, users, loading, loginVerif
                     <h1 className='font-bold ml-auto mr-5 text-accent'>Loading Tasks...</h1>
                     <span className='loading text-accent font-bold loading-bars text-center mr-auto'></span>
                 </div>
+                :tasks.length===0?<div className="text-center font-bold text-error">No Tasks Found!</div>
                 :
                 screenWidth >= 1000 ? <table className="table border rounded">
                     <thead>
                         <tr>
+                            <th onClick={handleSelectAll}>
+                                <input
+                                    className="checkbox"
+                                    type="checkbox"
+                                    checked={selectedTasks.length===tasks?.length&&tasks.length!==0}
+                                    onChange={() => handleSelectAll()}
+                                />
+                            </th>
                             <th className="font-bold">Task</th>
                             <th className="font-bold">Assigned To</th>
                             <th className="font-bold">Priority</th>
@@ -58,6 +70,14 @@ const GridTable: React.FC<GridTableProps> = ({ tasks, users, loading, loginVerif
                     <tbody>
                         {tasks?.map((task: any) => (
                             <tr key={task.id}>
+                                <td>
+                                    <input
+                                        className="checkbox"
+                                        type="checkbox"
+                                        checked={selectedTasks.includes(task.id)}
+                                        onChange={() => handleCheckboxChange(task.id)}
+                                    />
+                                </td>
                                 <td className="font-bold">
                                     {task.task}
                                 </td>

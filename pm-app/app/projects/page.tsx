@@ -6,7 +6,7 @@ import ProjectHeader from "../components/ProjectHeader";
 import { fetchTasks } from "../server-actions/fetchTasks";
 import { fetchUsers } from "../server-actions/fetchUsers";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { deleteMultipleTasks } from "../server-actions/deleteAllTasks";
 const Page = () => {
     const { data } = useSession();
     const [filterValues, setFilterValues] = useState<any>(null);
@@ -14,8 +14,10 @@ const Page = () => {
     const [tasks, setTasks] = useState<any>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [loginVerification, setLoginVerification] = useState<boolean>(true);
+    const [selectedTasks, setSelectedTasks] = useState<any[]>([]);
+
     useEffect(() => {
-        if(data!=null){
+        if (data != null) {
             setLoginVerification(false);
         }
         const handleFilters = (allTasks: any) => {
@@ -52,12 +54,38 @@ const Page = () => {
         }
         fetchTasksandUsers();
     }, [filterValues, data]);
-    
+    const handleSelectAll = () => {
+        if (selectedTasks.length === tasks.length) {
+            setSelectedTasks([]);
+        } else {
+            setSelectedTasks(tasks.map((task: any) => task.id));
+        }
+    };
+
+    const handleCheckboxChange = (taskId: any) => {
+        setSelectedTasks((prevSelectedTasks) => {
+            if (prevSelectedTasks.includes(taskId)) {
+                return prevSelectedTasks.filter((id) => id !== taskId);
+            } else {
+                return [...prevSelectedTasks, taskId];
+            }
+        });
+    };
+    const handleDeleteAllTasks = async () => {
+        setLoading(true);
+        await deleteMultipleTasks(selectedTasks);
+        const { allTasks } = await fetchTasks();
+        const { data } = await fetchUsers();
+        setUsers(data);
+        setTasks(allTasks);
+        setLoading(false);
+        setSelectedTasks([]);
+    }
     return (
         <div>
             <Drawer />
-            <ProjectHeader filterValues={filterValues} setFilterValues={setFilterValues} loginVerification={loginVerification}/>
-            <GridTable tasks={tasks} users={users} loading={loading} loginVerification={loginVerification}/>
+            <ProjectHeader filterValues={filterValues} setFilterValues={setFilterValues} loginVerification={loginVerification} setSelectedTasks={setSelectedTasks} selectedTasks={selectedTasks} handleDeleteAllTasks={handleDeleteAllTasks} tasksCount={tasks?.length}/>
+            <GridTable tasks={tasks} users={users} loading={loading} loginVerification={loginVerification} selectedTasks={selectedTasks} handleSelectAll={handleSelectAll} handleCheckboxChange={handleCheckboxChange} />
         </div>
     )
 }

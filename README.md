@@ -5,6 +5,9 @@
 
 ## Features
 
+### 0. Navigation bar:
+1. Navigate through Dashboard, Projects, Profile and Logout
+
 ### 1. Dashboard Interface :
 1. Analytics of ongoing projects, tasks, In progress and High Priority tasks, closest deadline project.
 2. View & Add, Edit, Delete, Update Projects.
