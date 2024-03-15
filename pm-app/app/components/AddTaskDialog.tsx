@@ -12,7 +12,6 @@ interface ModalProps {
 }
 
 const AddTaskDialog: React.FC<ModalProps> = ({ modalOpen, setModalOpen, callType, taskId, users, taskDetails, loginVerification }) => {
-    console.log(loginVerification);
     const router = useRouter();
     const handleModalClose = () => {
         setModalOpen(false);

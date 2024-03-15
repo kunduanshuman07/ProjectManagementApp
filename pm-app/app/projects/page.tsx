@@ -51,7 +51,7 @@ const Page = () => {
             handleTaskSetting(allTasks);
         }
         fetchTasksandUsers();
-    }, [filterValues]);
+    }, [filterValues, data]);
     
     return (
         <div>

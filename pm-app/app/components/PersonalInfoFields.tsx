@@ -33,7 +33,7 @@ const PersonalInfoFields: React.FC<FieldProps> = ({ user, setUser, loading }) =>
             </div>
             :
             <>
-              <div className={`flex p-5 mt-5 ${screenWidth<1000? 'flex-col': 'flex-row'}`}>
+              <div className={`flex p-5 mt-5 ${screenWidth<1000? 'flex-col mx-auto': 'flex-row'}`}>
                 <div className={`bg-white rounded-lg shadow-md p-6 flex flex-col ${screenWidth<1000?'': 'w-1/3'}`}>
                   <button className="text-xl font-bold mb-3 text-gray-800 text-center btn mx-auto">Personal Details</button>
                   <div className="text-gray-700 mt-5 flex flex-col">
