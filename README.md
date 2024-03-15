@@ -1,5 +1,5 @@
 # Project: ProjectManagementApp
-## Project url: **https://main.d1t8jycaljnzcu.amplifyapp.com**
+## Project url: **https://main.d1t8jycaljnzcu.amplifyapp.com** (Register and use it for the best performance)
 ## Overview
 ### This project is a completely responsive Task Management Application developed using Next.js, T3 stack, and integrated with a serverless backend. The application utilizes Supabase as the database for user authentication and data storage. The application uses nextAuth as authentication provider.
 
