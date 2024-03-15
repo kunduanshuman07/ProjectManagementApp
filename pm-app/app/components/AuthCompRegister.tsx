@@ -14,8 +14,7 @@ const AuthCompRegister = () => {
         const { message, data } = await registerUser({ name, email, password });
         if (message === 'Success' && data && data.length > 0) {
             setLoading(false);
-            router.push('/');
-            
+            router.push('/login');   
         }
     }
 

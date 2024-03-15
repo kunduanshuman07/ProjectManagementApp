@@ -1,12 +1,14 @@
-# Project: ProjectManagementApp
+# ProjectManagementApp
 ## Project url: **https://main.d1t8jycaljnzcu.amplifyapp.com** (Register and use it for the best performance)
 ## Overview
 ### This project is a completely responsive Task Management Application developed using Next.js, T3 stack, and integrated with a serverless backend. The application utilizes Supabase as the database for user authentication and data storage. The application uses nextAuth as authentication provider.
 
+
+
 ## Features
 
 ### 0. Navigation bar:
-1. Navigate through Dashboard, Projects, Profile and Logout
+1. Navigate through Dashboard, Tasks, Profile and Logout
 
 ### 1. Dashboard Interface :
 1. Analytics of ongoing projects, tasks, In progress and High Priority tasks, closest deadline project.
@@ -44,10 +46,10 @@
 **npm install**
 
 ### 3. Environment Variables:
-**Create a .env file in pm-app**
+1. **Create a .env file in pm-app**
 Add your supabase connection url and annon_key(can be seen in supabase dashboard)
-**NEXT_PUBLIC_SUPABASE_URL=your_supabase_url**
-**NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key**
+2. **NEXT_PUBLIC_SUPABASE_URL=your_supabase_url**
+3. **NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key**
 **more info: https://supabase.com/dashboard/project/settings/auth**
 
 ### 4. Run the development server:
@@ -69,10 +71,9 @@ We welcome contributions to improve ProjectManagementApp. Please fork the reposi
 ## Credits
 This project was created with the help of the following resources:
 
-**T3 Stack**
-**Next.js**
-**Supabase**
-**AWS**
+1. **Next.js**
+2. **Supabase**
+3. **AWS**
 
 
 ## Contact

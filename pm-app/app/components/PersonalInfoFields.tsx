@@ -42,7 +42,6 @@ const PersonalInfoFields: React.FC<FieldProps> = ({ user, setUser, loading }) =>
                       <MdAlternateEmail /> Email: {user.email}</button>
                     <button className="btn btn-success text-white font-bold btn-sm mt-2">
                       <FaPhoneAlt /> Phone: +91 {user.phone}</button>
-                    <button className="btn btn-success text-white font-bold btn-sm mt-2"><FaGenderless /> Gender: {user.gender}</button>
                     <button className="btn btn-success text-white font-bold btn-sm mt-2"><FaBirthdayCake /> Date of Birth: {user.dob}</button>
                   </div>
                 </div>
