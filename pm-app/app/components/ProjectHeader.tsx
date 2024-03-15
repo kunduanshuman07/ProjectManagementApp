@@ -43,7 +43,7 @@ const ProjectHeader: React.FC<ProjectHeaderProps> = ({ filterValues, setFilterVa
                 <button className="btn btn-neutral my-5 mr-auto ml-10 btn-info text-white font-bold" onClick={() => setFilterDialogOpen(true)}>Filters <FaFilter /></button>
                 <button className="btn my-5 mr-10 ml-auto" onClick={handleModalClick}>Add new task <AiOutlinePlus /></button>
             </div>
-            {tasksCount > 0 && selectedTasks > 0 && <button className="btn btn-error text-white font-bold btn-xs ml-5 mt-5" onClick={handleDeleteAllModal}>Delete all selected tasks</button>}
+            {tasksCount > 0 && selectedTasks.length > 0 && <button className="btn btn-error text-white font-bold btn-xs ml-5 mt-5" onClick={handleDeleteAllModal}>Delete all selected tasks</button>}
             <AddTaskDialog modalOpen={modalOpen} setModalOpen={setModalOpen} callType="Add" taskId={""} users={users} taskDetails={''}
                 loginVerification={loginVerification} />
             <FilterDialog modalOpen={filterDialogOpen} setModalOpen={setFilterDialogOpen} setFilterValues={setFilterValues} users={users} />
